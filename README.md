@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+CratolsenLouis!! Monstar Jams
 Yii 2 Basic Project Template
 ============================
 
