@@ -39,12 +39,15 @@ AppAsset::register($this);
             [
                 'label' => 'Admin',
                 'items' => [
-                    ['label' => 'Manage gender data', 'url' => 'tgender/index'],
-                    '<li class="divider"></li>',
-                    '<li class="dropdown-header">Dropdown Header</li>',
-                    ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
+                    ['label' => 'Manage gender data', 'url' => './tgender'],
+                    //'<li class="divider"></li>',
+                    //'<li class="dropdown-header">Dropdown Header</li>',
+                    ['label' => 'Manage t-shirt types', 'url' => './ttypes'],
+                    ['label' => 'Manage t-shirt sizes', 'url' => './tsizes'],
+                    ['label' => 'Manage t-shirt categories', 'url' => './tcategories'],
                 ],
             ],
+            /*
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
@@ -55,6 +58,7 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
+            */
         ],
     ]);
     NavBar::end();
