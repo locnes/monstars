@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Tsizes;
+use app\models\Ttypes;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TsizesController implements the CRUD actions for Tsizes model.
+ * TtypesController implements the CRUD actions for Ttypes model.
  */
-class TsizesController extends Controller
+class TtypesController extends Controller
 {
     public function behaviors()
     {
@@ -27,13 +27,13 @@ class TsizesController extends Controller
     }
 
     /**
-     * Lists all Tsizes models.
+     * Lists all Ttypes models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Tsizes::find(),
+            'query' => Ttypes::find(),
         ]);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class TsizesController extends Controller
     }
 
     /**
-     * Displays a single Tsizes model.
+     * Displays a single Ttypes model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class TsizesController extends Controller
     }
 
     /**
-     * Creates a new Tsizes model.
+     * Creates a new Ttypes model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Tsizes();
+        $model = new Ttypes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class TsizesController extends Controller
     }
 
     /**
-     * Updates an existing Tsizes model.
+     * Updates an existing Ttypes model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class TsizesController extends Controller
     }
 
     /**
-     * Deletes an existing Tsizes model.
+     * Deletes an existing Ttypes model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class TsizesController extends Controller
     }
 
     /**
-     * Finds the Tsizes model based on its primary key value.
+     * Finds the Ttypes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tsizes the loaded model
+     * @return Ttypes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tsizes::findOne($id)) !== null) {
+        if (($model = Ttypes::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
