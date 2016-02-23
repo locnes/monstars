@@ -37,9 +37,9 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             [
-                'label' => 'Dropdown',
+                'label' => 'Admin',
                 'items' => [
-                    ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
+                    ['label' => 'Manage gender data', 'url' => 'tgender/index'],
                     '<li class="divider"></li>',
                     '<li class="dropdown-header">Dropdown Header</li>',
                     ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
