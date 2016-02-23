@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Ttypes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ttypes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ttypes-view">

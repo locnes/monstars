@@ -41,7 +41,7 @@ class Tgender extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'g_name' => 'G Name',
+            'g_name' => 'Gender Name',
             'status' => 'Status',
             'sort_order' => 'Sort Order',
         ];

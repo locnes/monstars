@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Tgender */
 
 $this->title = 'Update Gender Type: ' . ' ' . $model->g_name;
-$this->params['breadcrumbs'][] = ['label' => 'Tgenders', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Manage Gender', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->g_name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="tgender-update">

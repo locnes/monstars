@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Tcategories */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tcategories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tcategories-view">

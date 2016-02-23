@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tcategories */
 
-$this->title = 'Create Tcategories';
-$this->params['breadcrumbs'][] = ['label' => 'Tcategories', 'url' => ['index']];
+$this->title = 'Create Categories';
+$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tcategories-create">

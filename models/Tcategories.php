@@ -43,8 +43,8 @@ class Tcategories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cat_name' => 'Cat Name',
-            'cat_discr' => 'Cat Discr',
+            'cat_name' => 'Name',
+            'cat_discr' => 'Discription',
             'status' => 'Status',
             'sort_order' => 'Sort Order',
         ];
