@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tsizes */
+/* @var $model app\models\Ttypes */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tsizes-form">
+<div class="ttypes-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

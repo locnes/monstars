@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tsizes */
+/* @var $model app\models\Ttypes */
 
-$this->title = 'Create Tsizes';
-$this->params['breadcrumbs'][] = ['label' => 'Tsizes', 'url' => ['index']];
+$this->title = 'Create Ttypes';
+$this->params['breadcrumbs'][] = ['label' => 'Ttypes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tsizes-create">
+<div class="ttypes-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

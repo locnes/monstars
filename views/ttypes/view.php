@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tsizes */
+/* @var $model app\models\Ttypes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tsizes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Ttypes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tsizes-view">
+<div class="ttypes-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
