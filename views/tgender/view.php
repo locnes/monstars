@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tgender */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tgenders', 'url' => ['index']];
+$this->title = $model->g_name;
+$this->params['breadcrumbs'][] = ['label' => 'Gender', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tgender-view">

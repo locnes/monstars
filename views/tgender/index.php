@@ -1,28 +1,28 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Manage Genders';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = "Gender";
 ?>
 <div class="tgender-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create New Gender', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add new gender', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'g_name',
             'status',
             'sort_order',
