@@ -7,22 +7,22 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'T-Shirt Sizes';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = "T-Shirt Size";
 ?>
 <div class="tsizes-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create T-Shirt Size', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add T-Shirt Size', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'type_name',
             'price_add',
             'status',
