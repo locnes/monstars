@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Tsizes */
 
 $this->title = 'Create Tsizes';
-$this->params['breadcrumbs'][] = ['label' => 'Tsizes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'T-Shirt Sizes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tsizes-create">
