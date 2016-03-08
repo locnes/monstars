@@ -20,7 +20,7 @@ class Tsizes extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Tsizes';
+        return 'T-Shirt Sizes';
     }
 
     /**
