@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Update T-shirt type: ' . ' ' . $model->type_name;
 $this->params['breadcrumbs'][] = ['label' => 'Types', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->type_name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="ttypes-update">
