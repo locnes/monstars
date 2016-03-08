@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Tsizes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tsizes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'T-Shirt sizes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tsizes-view">

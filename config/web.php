@@ -18,6 +18,12 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\formatter',
+            'thousandSeparator' => ',',
+            'decimalSeparator' => '.',
+            'currencyCode' => '$'
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
