@@ -54,7 +54,7 @@ class Tsizes extends \yii\db\ActiveRecord
         ];
 
 
-    }public function displayStatusName()
+}public function displayStatusName()
 {
     $this->status = [
         'Y' => 'Live',
