@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tsizes */
 
-$this->title = 'Create Tsizes';
+$this->title = 'Create T-Shirt Sizes';
 $this->params['breadcrumbs'][] = ['label' => 'T-Shirt Sizes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
