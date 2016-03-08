@@ -16,7 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price_add')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <? //= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->radioList(['Y' => 'Live', 'N' => 'Not Live'])->label() ?>
 
     <?= $form->field($model, 'sort_order')->textInput() ?>
 
