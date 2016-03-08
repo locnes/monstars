@@ -43,12 +43,22 @@ class Tsizes extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
+
         return [
             'id' => 'ID',
-            'type_name' => 'Type Name',
+            'type_name' => 'Shirt Size',
             'price_add' => 'Price Add',
             'status' => 'Status',
             'sort_order' => 'Sort Order',
+
         ];
-    }
+
+        
+    }public function displayStatusName()
+{
+    $this->status = [
+        'Y' => 'Live',
+        'N' => 'Not live'
+    ];
+}
 }
