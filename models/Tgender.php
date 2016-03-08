@@ -30,7 +30,7 @@ class Tgender extends \yii\db\ActiveRecord
         return [
             [['g_name', 'sort_order'], 'required'],
             [['sort_order'], 'integer'],
-            [['g_name', 'status'], 'string', 'max' => 1]
+            [['g_name', 'status'], 'string', 'max' => 13]
         ];
     }
 
