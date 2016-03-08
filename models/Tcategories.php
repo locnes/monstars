@@ -49,4 +49,13 @@ class Tcategories extends \yii\db\ActiveRecord
             'sort_order' => 'Sort Order',
         ];
     }
+
+
+    public function displayStatusName()
+    {
+        $this->status = [
+            'Y' => 'Live',
+            'N' => 'Not live'
+        ];
+    }
 }
