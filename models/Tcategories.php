@@ -31,7 +31,7 @@ class Tcategories extends \yii\db\ActiveRecord
         return [
             [['cat_name', 'cat_discr', 'sort_order'], 'required'],
             [['sort_order'], 'integer'],
-            [['cat_name', 'cat_discr'], 'string', 'max' => 2],
+            [['cat_name', 'cat_discr'], 'string', 'max' => 25],
             [['status'], 'string', 'max' => 1]
         ];
     }
