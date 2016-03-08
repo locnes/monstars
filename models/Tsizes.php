@@ -52,7 +52,7 @@ class Tsizes extends \yii\db\ActiveRecord
             'sort_order' => 'Sort Order',
 
         ];
-    }
+
 
     }public function displayStatusName()
 {
