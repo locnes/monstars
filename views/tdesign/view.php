@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = "\"" . $this->title . "\" Design";
             'price',
             'description:ntext',
             'fileName',
+            //'category',
             'status',
         ],
     ]) ?>

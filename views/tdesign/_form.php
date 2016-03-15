@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::activeDropDownList($model, 'id',
+    <?= $form->field($model, 'category')->dropDownList(
         ArrayHelper::map(Tcategories::find()->all(), 'id', 'cat_name')) ?>
 
     <? //= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>

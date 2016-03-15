@@ -52,6 +52,7 @@ class Tdesign extends \yii\db\ActiveRecord
             'description' => 'Description',
             'fileName' => 'File Name',
             'categoryId' => 'Category ID',
+            'category' => 'My category',
             'status' => 'Status',
         ];
     }
