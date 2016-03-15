@@ -1,7 +1,10 @@
 <?php
 
+use app\models\Tcategories;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tdesign */
@@ -19,6 +22,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
+
+    <?= Html::activeDropDownList($model, 'id',
+        ArrayHelper::map(Tcategories::find()->all(), 'id', 'cat_name')) ?>
 
     <? //= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'status')->radioList(['Y' => 'Live', 'N' => 'Not Live'])->label() ?>
