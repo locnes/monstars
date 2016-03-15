@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tdesign */
 
-$this->title = 'Create Tdesign';
-$this->params['breadcrumbs'][] = ['label' => 'Tdesigns', 'url' => ['index']];
+$this->title = 'Create Design';
+$this->params['breadcrumbs'][] = ['label' => 'T-shirt Designs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tdesign-create">
