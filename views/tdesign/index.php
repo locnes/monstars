@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tdesigns';
+$this->title = 'T-shirt Designs';
 $this->params['breadcrumbs'][] = "Design";
 ?>
 <div class="tdesign-index">
