@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'T-shirt Designs';
-$this->params['breadcrumbs'][] = "Design";
+$this->params['breadcrumbs'][] = "All Designs";
 ?>
 <div class="tdesign-index">
 
