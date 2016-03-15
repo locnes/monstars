@@ -12,6 +12,7 @@ use Yii;
  * @property string $price
  * @property string $description
  * @property string $fileName
+ * @property integer $categoryId
  * @property string $status
  */
 class Tdesign extends \yii\db\ActiveRecord
@@ -33,6 +34,7 @@ class Tdesign extends \yii\db\ActiveRecord
             [['title', 'price', 'description'], 'required'],
             [['price'], 'number'],
             [['description'], 'string'],
+            [['categoryId'], 'integer'],
             [['title', 'fileName'], 'string', 'max' => 250],
             [['status'], 'string', 'max' => 1]
         ];
@@ -49,6 +51,7 @@ class Tdesign extends \yii\db\ActiveRecord
             'price' => 'Price',
             'description' => 'Description',
             'fileName' => 'File Name',
+            'categoryId' => 'Category ID',
             'status' => 'Status',
         ];
     }
