@@ -28,6 +28,10 @@ $this->params['breadcrumbs'][] = "Design";
             'description:ntext',
             'fileName',
             [
+                'header' => 'Curtis Is Kool',
+                'attribute' => 'categoryId',
+            ],
+            [
                 'attribute' => 'Category',
                 'value' => 'category.cat_name',
             ],
