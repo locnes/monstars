@@ -50,12 +50,4 @@ class Tcategories extends \yii\db\ActiveRecord
         ];
     }
 
-
-    public function displayStatusName()
-    {
-        $this->status = [
-            'Y' => 'Live',
-            'N' => 'Not live'
-        ];
-    }
 }

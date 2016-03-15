@@ -645,4 +645,24 @@ class ActiveRecord extends BaseActiveRecord
 
         return isset($transactions[$scenario]) && ($transactions[$scenario] & $operation);
     }
+
+
+    /**
+     * Returns an array for Yes / No drop-down menus or radio groups
+     * @return array
+     */
+    public static function getStatusList()
+    {
+        return $options = ["N" => "Not Live", "Y" => "Live"];
+    }
+
+
+    /**
+     * Returns the string relating to the Y / N value of a "status" column in any of our models
+     * @return string
+     */
+    public function getStatusName()
+    {
+        return $this->status == "N" ? "Live" : "Not Live";
+    }
 }

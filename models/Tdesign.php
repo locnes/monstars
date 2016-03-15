@@ -55,4 +55,15 @@ class Tdesign extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Tcategories::className(), ['id' => 'categoryId']);
+    }
+
+
 }

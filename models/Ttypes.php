@@ -53,11 +53,12 @@ class Ttypes extends \yii\db\ActiveRecord
     }
 
 
-    public function displayStatusName()
+    public function getStatusName()
     {
-        $this->status = [
+        return $this->status = [
             'Y' => 'Live',
             'N' => 'Not live'
         ];
     }
+
 }

@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,6 +27,10 @@ $this->params['breadcrumbs'][] = "Design";
             'price',
             'description:ntext',
             'fileName',
+            [
+                'attribute' => 'Category',
+                'value' => 'category.cat_name',
+            ],
             // 'status',
 
             ['class' => 'yii\grid\ActionColumn'],

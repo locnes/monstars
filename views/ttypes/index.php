@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,10 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'type_name',
             'price_add',
             'status',
+
+            /*
+            [
+                'attribute'=>'getStatusName',
+                'format'=>'boolean',
+            ],
+            */
+
             'sort_order',
 
             ['class' => 'yii\grid\ActionColumn'],
