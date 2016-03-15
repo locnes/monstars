@@ -39,12 +39,13 @@ AppAsset::register($this);
             [
                 'label' => 'Admin',
                 'items' => [
-                    ['label' => 'Manage gender data', 'url' => './tgender'],
-                    //'<li class="divider"></li>',
-                    //'<li class="dropdown-header">Dropdown Header</li>',
-                    ['label' => 'Manage t-shirt types', 'url' => './ttypes'],
-                    ['label' => 'Manage t-shirt sizes', 'url' => './tsizes'],
-                    ['label' => 'Manage t-shirt categories', 'url' => './tcategories'],
+                    ['label' => 'Manage genders', 'url' => ['/tgender/index']],
+                    '<li class="divider"></li>',
+                    '<li class="dropdown-header">Manage T-Shirt...</li>',
+                    ['label' => 'Types', 'url' => ['/ttypes/index']],
+                    ['label' => 'Sizes', 'url' => ['/tsizes/index']],
+                    ['label' => 'Categories', 'url' => ['/tcategories/index']],
+                    ['label' => 'Designs', 'url' => ['/tdesign/index']],
                 ],
             ],
             /*
