@@ -25,6 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'type_name',
             'price_add',
+            [
+                //'format' => 'currency',
+                //NumberFormatter::CURRENCY_SYMBOL => '₽',
+                //'format' => ['decimal',2],
+                'attribute' => 'price_add',
+            ],
             'status',
 
             /*
