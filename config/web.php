@@ -20,6 +20,7 @@ $config = [
         ],
         'formatter' => [
             'class' => 'yii\i18n\formatter',
+            'dateFormat' => 'YYYY-MM-DD',
             'thousandSeparator' => ',',
             'decimalSeparator' => '.',
             'currencyCode' => '$'
