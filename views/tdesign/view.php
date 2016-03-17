@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'All Designs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = "\"" . $this->title . "\" Design";
+$this->params['breadcrumbs'][] = "Details about the \"" . $this->title . "\" design";
 ?>
 <div class="tdesign-view">
 
@@ -33,7 +33,15 @@ $this->params['breadcrumbs'][] = "\"" . $this->title . "\" Design";
             'price',
             'description:ntext',
             'fileName',
-            //'category',
+            //'categoryId',
+            [
+                'attribute' => 'category.cat_name',
+                'label' => 'Category name',
+            ],
+            [
+                'attribute' => 'category',
+                'value' => $model->category->cat_name,
+            ],
             'status',
         ],
     ]) ?>
