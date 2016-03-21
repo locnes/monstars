@@ -665,4 +665,6 @@ class ActiveRecord extends BaseActiveRecord
     {
         return $this->status == "N" ? "Live" : "Not Live";
     }
+
+
 }

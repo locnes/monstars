@@ -25,7 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'cat_name',
             'cat_discr',
-            'status',
+            'status',   // Just regular "status" column value from database
+            // But this is the "status name" that corresponds to the "status" column value from extended class
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ],
             'sort_order',
 
             ['class' => 'yii\grid\ActionColumn'],

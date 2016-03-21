@@ -15,6 +15,9 @@ use Yii;
  */
 class Tcategories extends \yii\db\ActiveRecord
 {
+
+    public $Live;
+
     /**
      * @inheritdoc
      */
@@ -49,5 +52,6 @@ class Tcategories extends \yii\db\ActiveRecord
             'sort_order' => 'Sort Order',
         ];
     }
+
 
 }

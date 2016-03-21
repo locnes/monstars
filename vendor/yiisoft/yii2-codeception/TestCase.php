@@ -7,13 +7,12 @@
 
 namespace yii\codeception;
 
+use Codeception\TestCase\Test;
 use Yii;
 use yii\base\InvalidConfigException;
-use Codeception\TestCase\Test;
 use yii\base\UnknownMethodException;
 use yii\base\UnknownPropertyException;
 use yii\di\Container;
-use yii\test\ActiveFixture;
 use yii\test\BaseActiveFixture;
 use yii\test\FixtureTrait;
 
@@ -104,6 +103,9 @@ class TestCase extends Test
      */
     protected function mockApplication($config = null)
     {
+        if (isset(Yii::$app)) {
+            return;
+        }
         Yii::$container = new Container();
         $config = $config === null ? $this->appConfig : $config;
         if (is_string($config)) {
@@ -128,6 +130,14 @@ class TestCase extends Test
      */
     protected function destroyApplication()
     {
+        if (\Yii::$app) {
+            if (\Yii::$app->has('session', true)) {
+                \Yii::$app->session->close();
+            }
+            if (\Yii::$app->has('db', true)) {
+                Yii::$app->db->close();
+            }
+        }
         Yii::$app = null;
         Yii::$container = new Container();
     }
