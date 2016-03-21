@@ -663,7 +663,7 @@ class ActiveRecord extends BaseActiveRecord
      */
     public function getStatusName()
     {
-        return $this->status == "N" ? "Live" : "Not Live";
+        return $this->status == "N" ? "Not Live" : "Live";
     }
 
 
