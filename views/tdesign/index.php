@@ -27,10 +27,7 @@ $this->params['breadcrumbs'][] = "All Designs";
             'price',
             'description:ntext',
             'fileName',
-            [
-                'header' => 'Curtis Is Kool',
-                'attribute' => 'categoryId',
-            ],
+            //'categoryId',
             [
                 'attribute' => 'Category',
                 'value' => 'category.cat_name',

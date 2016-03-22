@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,15 +24,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'type_name',
-            'price_add',
-            /*
             [
-                'format' => 'Currency',
                 'attribute' => 'price_add',
+                'format' => [
+                    'currency',
+                    'USD',
+                    [
+                        \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                        \NumberFormatter::MAX_FRACTION_DIGITS => 2,
+                    ]
+                ],
             ],
-            */
-            'status',
-            'sort_order',
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ], 'sort_order',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

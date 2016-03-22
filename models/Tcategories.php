@@ -16,8 +16,6 @@ use Yii;
 class Tcategories extends \yii\db\ActiveRecord
 {
 
-    public $Live;
-
     /**
      * @inheritdoc
      */

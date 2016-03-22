@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'cat_name',
             'cat_discr',
-            'status',   // Just regular "status" column value from database
-            // But this is the "status name" that corresponds to the "status" column value from extended class
+//            'status',   // Just regular "status" column value from database
+//             But this is the "status name" that corresponds to the "status" column value from extended class
             [
                 'attribute' => 'status',
                 'value' => function ($data) {

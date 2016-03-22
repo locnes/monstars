@@ -31,18 +31,22 @@ $this->params['breadcrumbs'][] = "Details about the \"" . $this->title . "\" des
             //'id',
             'title',
             'price',
-            'description:ntext',
+            // https://silverdecisions.wordpress.com/2015/03/27/simple-colum-formatting-in-yii-2-gridview/
+            'description:html',
             'fileName',
-            //'categoryId',
-            [
-                'attribute' => 'category.cat_name',
-                'label' => 'Category name',
-            ],
+//            [
+//                'attribute' => 'category.cat_name',
+//                'label' => 'Category name',
+//            ],
             [
                 'attribute' => 'category',
                 'value' => $model->category->cat_name,
             ],
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
+
         ],
     ]) ?>
 

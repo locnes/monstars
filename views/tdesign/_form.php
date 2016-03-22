@@ -1,11 +1,9 @@
 <?php
 
-use app\models\Tcategories;
-use yii\helpers\ArrayHelper;
+use dosamigos\tinymce\TinyMce;
+use kartik\money\MaskMoney;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\tinymce\TinyMce;
-
 
 
 /* @var $this yii\web\View */
@@ -19,13 +17,17 @@ use dosamigos\tinymce\TinyMce;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'price')->widget(MaskMoney::classname(), [
+        'pluginOptions' => [
+            'prefix' => '$',
+            'allowNegative' => false
+        ]
+    ]);
+    ?>
 
     <?= $form->field($model, 'description')->widget(TinyMce::className(), [
         'options' => ['rows' => 6],
-        'language' => 'es',
+        'language' => 'en_CA',
         'clientOptions' => [
             'plugins' => [
                 "advlist autolink lists link charmap print preview anchor",
@@ -34,15 +36,13 @@ use dosamigos\tinymce\TinyMce;
             ],
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         ]
-    ]);?>
+    ]); ?>
 
     <?= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->dropDownList(
-        ArrayHelper::map(Tcategories::find()->all(), 'id', 'cat_name')) ?>
+    <?= $form->field($model, 'categoryId')->dropDownList($model->getCategoryList(), ['prompt' => 'Please choose...']) ?>
 
-    <? //= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'status')->radioList(['Y' => 'Live', 'N' => 'Not Live'])->label() ?>
+    <?= $form->field($model, 'status')->dropDownList($model->getStatusList(), ['prompt' => 'Please choose...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
