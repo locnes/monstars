@@ -1,5 +1,6 @@
 <?php
 
+use kartik\money\MaskMoney;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +15,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'price_add')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'price_add')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price_add')->widget(MaskMoney::classname(), [
+        'pluginOptions' => [
+            'prefix' => '$',
+            'allowNegative' => false
+        ]
+    ]);
+    ?>
 
     <? //= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'status')->radioList(['Y' => 'Live', 'N' => 'Not Live'])->label() ?>
