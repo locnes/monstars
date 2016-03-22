@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'type_name',
-            'price_add',
+            //'price_add',
             [
                 //'format' => 'currency',
                 //NumberFormatter::CURRENCY_SYMBOL => '₽',
@@ -33,12 +33,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'status',
 
+            // @todo need to change status values to Status names
+            /*
+             *   [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ],
+             */
+
             /*
             [
                 'attribute'=>'getStatusName',
                 'format'=>'boolean',
             ],
             */
+
 
             'sort_order',
 

@@ -27,15 +27,18 @@ $this->params['breadcrumbs'][] = "All Designs";
             'price',
             'description:ntext',
             'fileName',
-            [
-                'header' => 'Curtis Is Kool',
-                'attribute' => 'categoryId',
-            ],
+
             [
                 'attribute' => 'Category',
                 'value' => 'category.cat_name',
             ],
-            // 'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ],
+             //'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = "Details about the \"" . $this->title . "\" des
             ],
             [
                 'attribute' => 'category',
-                'value' => $model->category->cat_name,
+                'value' => $model->getStatusName(),
             ],
             'status',
         ],
