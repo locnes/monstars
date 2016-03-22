@@ -7,8 +7,8 @@
 
 namespace yii\gii;
 
-use Yii;
 use ReflectionClass;
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\VarDumper;
@@ -270,7 +270,7 @@ abstract class Generator extends Model
         $hasError = false;
         foreach ($files as $file) {
             $relativePath = $file->getRelativePath();
-            if (isset($answers[$file->id]) && $file->operation !== CodeFile::OP_SKIP) {
+            if (isset($answers[$file->id]) && !empty($answers[$file->id]) && $file->operation !== CodeFile::OP_SKIP) {
                 $error = $file->save();
                 if (is_string($error)) {
                     $hasError = true;
