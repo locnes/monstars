@@ -32,6 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'type_name',
             'price_add',
             'status',
+            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'sort_order',
         ],
     ]) ?>

@@ -31,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'price_add',
             ],
             */
-            'status',
+            //'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ],
+
             'sort_order',
 
             ['class' => 'yii\grid\ActionColumn'],
