@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tsizes */
 
-$this->title = "Size: " . $model->type_name;
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'T-Shirt sizes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,11 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'type_name',
             'price_add',
-
-            [
-                'attribute' => 'status',
-                'value' => $model->getStatusName(),
-            ],
+            'status',
             'sort_order',
         ],
     ]) ?>

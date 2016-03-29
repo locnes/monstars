@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "Tdesign".
@@ -17,6 +19,14 @@ use Yii;
  */
 class Tdesign extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var mixed image the attribute for rendering the file input
+     * widget for upload on the form
+     */
+    public $image;
+
+
     /**
      * @inheritdoc
      */
@@ -36,6 +46,8 @@ class Tdesign extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['categoryId'], 'integer'],
             [['title', 'fileName'], 'string', 'max' => 250],
+            [['fileName'], 'safe'],
+            //[['fileName'], 'file', 'extensions'=>'jpg, jpeg, gif, png'],
             [['status'], 'string', 'max' => 1]
         ];
     }
@@ -50,9 +62,8 @@ class Tdesign extends \yii\db\ActiveRecord
             'title' => 'Title',
             'price' => 'Price',
             'description' => 'Description',
-            'fileName' => 'File Name',
-            'categoryId' => 'Category ID',
-            'category' => 'My category',
+            'fileName' => 'File name',
+            'categoryId' => 'Category',
             'status' => 'Status',
         ];
     }
@@ -60,6 +71,7 @@ class Tdesign extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * A relation to connect Tdesign table to Tcategories
      */
     public function getCategory()
     {
@@ -67,4 +79,9 @@ class Tdesign extends \yii\db\ActiveRecord
     }
 
 
+    public static function getCategoryList()
+    {
+        $options = Tcategories::find()->asArray()->all();
+        return Arrayhelper::map($options, 'id', 'cat_name');
+    }
 }
