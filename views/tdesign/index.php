@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Tcategories;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -19,18 +20,20 @@ $this->params['breadcrumbs'][] = "All Designs";
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             'title',
             'price',
-            'description:ntext',
+            'description:html',
             'fileName',
             //'categoryId',
             [
-                'attribute' => 'Category',
+                'attribute' => 'category',
                 'value' => 'category.cat_name',
+                'filter' => Tcategories::dropDownMenu(),
             ],
             // 'status',
 
