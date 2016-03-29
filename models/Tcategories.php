@@ -61,7 +61,7 @@ class Tcategories extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(Tcategories::find()
             ->asArray()
-            ->where(['status' => 'Y'])
+            //->where(['status' => 'Y'])
             ->orderBy(['cat_name' => SORT_ASC])
             ->all(),
             'id', 'cat_name');

@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = "All Designs";
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'emptyText' => "No T-Shirt designs found with the given criteria.",
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 

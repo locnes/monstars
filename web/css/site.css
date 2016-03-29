@@ -89,3 +89,9 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+/* Used to format empty cells in Yii2 GridView widget */
+.emptyCell {
+    font-style: italic;
+    color: #ff000a;
+}
