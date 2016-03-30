@@ -84,4 +84,6 @@ class Tdesign extends \yii\db\ActiveRecord
         $options = Tcategories::find()->asArray()->all();
         return Arrayhelper::map($options, 'id', 'cat_name');
     }
+
+    
 }
