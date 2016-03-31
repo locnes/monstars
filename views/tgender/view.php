@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->getStatusName(),
             ],
             'sort_order',
-
         ],
     ]) ?>
 
