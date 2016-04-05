@@ -30,8 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'type_name',
-            'price_add',
-            'status',
+            [
+                'attribute' => 'price_add',
+                'format' => [
+                    'currency',
+                    'USD',
+                    [
+                        \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                        \NumberFormatter::MAX_FRACTION_DIGITS => 2,
+                    ]
+                ],
+            ],
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'sort_order',
         ],
     ]) ?>

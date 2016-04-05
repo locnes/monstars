@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = 'Update T-shirt design: ' . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Design', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = "\"" . $model->title . "\" Design";
+$this->params['breadcrumbs'][] = "Update the design";
 ?>
 <div class="tdesign-update">
 

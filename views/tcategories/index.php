@@ -23,10 +23,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'cat_name',
-            'cat_discr',
-            'status',   // Just regular "status" column value from database
-            // But this is the "status name" that corresponds to the "status" column value from extended class
+            'cat_name', /* This handles showing "empty" text in the Description column */
+            [
+                'attribute' => 'cat_discr',
+                'format' => 'raw',
+                'value' => function (\app\models\Tcategories $model) {
+                    if ($model->cat_discr != null) {
+                        return $model->cat_discr;
+                    } else {
+                        return "<span class='emptyCell'>none</span>";
+                    }
+                },
+            ],
+//            'status',   // Just regular "status" column value from database
+//             But this is the "status name" that corresponds to the "status" column value from extended class
             [
                 'attribute' => 'status',
                 'value' => function ($data) {
