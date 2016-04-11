@@ -2,7 +2,9 @@
 
 use app\models\Tcategories;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,19 +23,47 @@ $this->params['breadcrumbs'][] = "All Designs";
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'emptyText' => "No T-Shirt designs found with the given criteria.",
+        'emptyCell' => Html::a('x', ['index']),
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             'title',
-            'price',
+            //'price',
+            [
+                'attribute' => 'price',
+                'format' => [
+                    'currency',
+                    'USD',
+                    [
+                        \NumberFormatter::MIN_FRACTION_DIGITS => 2,
+                        \NumberFormatter::MAX_FRACTION_DIGITS => 2,
+                    ]
+                ],
+            ],
             'description:html',
-            'fileName',
+            [
+                'attribute' => 'fileName',
+                'label' => 'Image',
+                'format' => 'raw',
+                'value' => function (\app\models\Tdesign $model) {
+                    if ($model->fileName != null) {
+                        return $model->fileName;
+                    } else {
+                        return "<span class='emptyCell'>none</span>";
+                    }
+                },
+            ],
             //'categoryId',
             [
                 'attribute' => 'category',
-                'value' => 'category.cat_name',
-                'filter' => Tcategories::dropDownMenu(),
+                //'value' => 'category.cat_name',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index) {
+                    return Html::a($model->category->cat_name, ['tcategories/update', 'id' => $model->categoryId]);
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'categoryId', ArrayHelper::map(Tcategories::find()->asArray()->all(), 'id', 'cat_name'), ['class' => 'form-control', 'prompt' => 'all']),
             ],
             // 'status',
 

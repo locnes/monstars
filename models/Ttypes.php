@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+
 /**
  * This is the model class for table "Ttypes".
  *
@@ -53,12 +54,5 @@ class Ttypes extends \yii\db\ActiveRecord
     }
 
 
-    public function getStatusName()
-    {
-        return $this->status = [
-            'Y' => 'Live',
-            'N' => 'Not live'
-        ];
-    }
 
 }

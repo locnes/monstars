@@ -24,9 +24,12 @@ $this->params['breadcrumbs'][] = "Gender";
 
             //'id',
             'g_name',
-            'status',
-            'sort_order',
-
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
+            ], 'sort_order',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

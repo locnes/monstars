@@ -47,7 +47,7 @@ class Tdesign extends \yii\db\ActiveRecord
             [['categoryId'], 'integer'],
             [['title', 'fileName'], 'string', 'max' => 250],
             [['fileName'], 'safe'],
-            //[['fileName'], 'file', 'extensions'=>'jpg, jpeg, gif, png'],
+            [['fileName'], 'file', 'extensions' => 'jpg, jpeg, gif, png'],
             [['status'], 'string', 'max' => 1]
         ];
     }
@@ -84,4 +84,6 @@ class Tdesign extends \yii\db\ActiveRecord
         $options = Tcategories::find()->asArray()->all();
         return Arrayhelper::map($options, 'id', 'cat_name');
     }
+
+    
 }

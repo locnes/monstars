@@ -56,7 +56,6 @@ class TdesignSearch extends Tdesign
         // The key is the attribute name on our "TdesignSearch" instance
         $dataProvider->sort->attributes['category'] = [
             // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
             'asc' => ['Tcategories.cat_name' => SORT_ASC],
             'desc' => ['Tcategories.cat_name' => SORT_DESC],
         ];
