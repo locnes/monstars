@@ -70,6 +70,20 @@ class Tdesign extends \yii\db\ActiveRecord
 
 
     /**
+     * fetch stored image url
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        // return a default image placeholder if your source avatar is not found
+        $avatar = isset($this->fileName) ? $this->fileName : 'tShirt-default.jpg';
+        //return Yii::$app->params['uploadUrl'] . $avatar;
+        return Yii::getAlias('@web') . "/uploads/" . $avatar;
+    }
+
+
+
+    /**
      * @return \yii\db\ActiveQuery
      * A relation to connect Tdesign table to Tcategories
      */
