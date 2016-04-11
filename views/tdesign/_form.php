@@ -1,10 +1,12 @@
 <?php
 
 use dosamigos\tinymce\TinyMce;
+use kartik\file\FileInput;
 use kartik\money\MaskMoney;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+//use kartik\widgets\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tdesign */
@@ -13,7 +15,7 @@ use yii\widgets\ActiveForm;
 
 <div class="tdesign-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -38,7 +40,10 @@ use yii\widgets\ActiveForm;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
+    <? //= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fileName')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => ['allowedFileExtensions' => ['jpg', 'jpeg', 'gif', 'png']]]) ?>
 
     <?= $form->field($model, 'categoryId')->dropDownList($model->getCategoryList(), ['prompt' => 'Please choose...']) ?>
 

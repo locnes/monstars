@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = "All Designs";
         'emptyText' => "No T-Shirt designs found with the given criteria.",
         'emptyCell' => Html::a('x', ['index']),
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             'title',
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = "All Designs";
                     'currency',
                     'USD',
                     [
-                        \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                        \NumberFormatter::MIN_FRACTION_DIGITS => 2,
                         \NumberFormatter::MAX_FRACTION_DIGITS => 2,
                     ]
                 ],
