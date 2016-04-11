@@ -49,7 +49,12 @@ $this->params['breadcrumbs'][] = "All Designs";
                 'format' => 'raw',
                 'value' => function (\app\models\Tdesign $model) {
                     if ($model->fileName != null) {
-                        return $model->fileName;
+                        return Html::img($model->getImageUrl(), [
+                            'width' => '70',
+                            'class' => 'img-rounded img-thumbnail img-responsive',
+                            'alt' => $model->title,
+                            'title' => $model->title
+                        ]);
                     } else {
                         return "<span class='emptyCell'>none</span>";
                     }

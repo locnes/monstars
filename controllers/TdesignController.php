@@ -86,14 +86,14 @@ class TdesignController extends Controller
             // store the source file name
             $model->fileName = $image->name;
             //$ext = end((explode(".", $image->name)));
-            $ext = $image->extension;
+            //$ext = $image->extension;
 
             // generate a unique file name
             //$avatar = Yii::$app->security->generateRandomString().".{$ext}";
 
             // the path to save file, you can set an uploadPath
             // in Yii::$app->params (as used in example below)
-            $path = Yii::$app->basePath . "/web/uploads/" . $image->name . $ext;
+            $path = Yii::$app->basePath . "/web/uploads/" . $image->name;
 
             //die($path);
 
