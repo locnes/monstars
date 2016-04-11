@@ -8,6 +8,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * TdesignController implements the CRUD actions for Tdesign model.
@@ -58,17 +59,54 @@ class TdesignController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+//    public function actionCreate()
+//    {
+//        $model = new Tdesign();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
     public function actionCreate()
     {
         $model = new Tdesign();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            // get the uploaded file instance. for multiple file uploads
+            // the following data will return an array
+            $image = UploadedFile::getInstance($model, 'fileName');
+
+            //echo "<p>" . Yii::$app->basePath . "</p>>";
+            //var_dump($image);
+
+            // store the source file name
+            $model->fileName = $image->name;
+            //$ext = end((explode(".", $image->name)));
+            $ext = $image->extension;
+
+            // generate a unique file name
+            //$avatar = Yii::$app->security->generateRandomString().".{$ext}";
+
+            // the path to save file, you can set an uploadPath
+            // in Yii::$app->params (as used in example below)
+            $path = Yii::$app->basePath . "/web/uploads/" . $image->name . $ext;
+
+            //die($path);
+
+            if ($model->save()) {
+                $image->saveAs($path);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                // error in saving model
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
