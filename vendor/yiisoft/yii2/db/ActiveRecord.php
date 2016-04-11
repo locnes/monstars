@@ -667,4 +667,14 @@ class ActiveRecord extends BaseActiveRecord
     }
 
 
+    /**
+     * @param string $text
+     * @return string
+     * Used to display empty text in table cells in either GridView or DetailView widgets
+     */
+    public function displayEmptyCell($text = "none")
+    {
+        return "<span class='emptyCell'>" . $text . "</span>";
+    }
+
 }

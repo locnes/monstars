@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Add New T-Shirt Types', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add New T-Shirt Type', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,22 +24,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'type_name',
-            'price_add',
             [
-                //'format' => 'currency',
-                //NumberFormatter::CURRENCY_SYMBOL => '₽',
-                //'format' => ['decimal',2],
                 'attribute' => 'price_add',
+                'format' => [
+                    'currency',
+                    'USD',
+                    [
+                        \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                        \NumberFormatter::MAX_FRACTION_DIGITS => 2,
+                    ]
+                ],
             ],
-            'status',
-
-            /*
             [
-                'attribute'=>'getStatusName',
-                'format'=>'boolean',
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->getStatusName();
+                }
             ],
-            */
-
             'sort_order',
 
             ['class' => 'yii\grid\ActionColumn'],
