@@ -46,7 +46,14 @@ $this->params['breadcrumbs'][] = "Details about the \"" . $this->title . "\" des
             [
                 'attribute' => 'fileName',
                 'format' => 'raw',
-                'value' => $model->fileName != null ? $model->fileName : "<span class='emptyCell'>none</span>",
+                'value' => $model->fileName != null ?
+                    $model->getImageUrl() . "<br />" .
+                    Html::img($model->getImageUrl(), [
+                        'width' => '200',
+                        'class' => 'img-rounded img-thumbnail img-responsive',
+                        'alt' => $model->title,
+                        'title' => $model->title
+                    ]) : "<span class='emptyCell'>none</span>",
             ],
 //            [
 //                'attribute' => 'category.cat_name',
