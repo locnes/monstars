@@ -82,6 +82,41 @@ class Tdesign extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * fetch stored image file name with complete path
+     * @return string
+     */
+    public function getImageFile()
+    {
+        return isset($this->fileName) ? Yii::getAlias('@web') . "/uploads/" . $this->fileName : null;
+    }
+
+
+    /**
+     * Process deletion of image
+     *
+     * @return boolean the status of deletion
+     */
+    public function deleteImage()
+    {
+        $file = $this->getImageFile();
+
+        // check if file exists on server
+        if (empty($file) || !file_exists($file)) {
+            return false;
+        }
+
+        // check if uploaded file can be deleted on server
+        if (!unlink($file)) {
+            return false;
+        }
+
+        // if deletion successful, reset your file attributes (from Tdesign model)
+        $this->fileName = null;
+
+        return true;
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
