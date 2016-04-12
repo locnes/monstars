@@ -85,6 +85,8 @@ $this->params['breadcrumbs'][] = "All Designs";
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => Html::a('x', ['index']),
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center; white-space: nowrap;'],
             ],
         ],
     ]); ?>
