@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tcolors */
 
-$this->title = 'Update Tcolors: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tcolors', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->title = 'Update Color: ' . $model->color;
+$this->params['breadcrumbs'][] = ['label' => 'Colors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->color, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="tcolors-update">

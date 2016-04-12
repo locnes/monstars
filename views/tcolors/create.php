@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tcolors */
 
-$this->title = 'Create Tcolors';
-$this->params['breadcrumbs'][] = ['label' => 'Tcolors', 'url' => ['index']];
+$this->title = 'Create Color';
+$this->params['breadcrumbs'][] = ['label' => 'Colors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tcolors-create">

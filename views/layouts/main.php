@@ -43,6 +43,7 @@ AppAsset::register($this);
                     '<li class="divider"></li>',
                     '<li class="dropdown-header">Manage T-Shirt...</li>',
                     ['label' => 'Types', 'url' => ['/ttypes/index']],
+                    ['label' => 'Colors', 'url' => ['/tcolors/index']],
                     ['label' => 'Sizes', 'url' => ['/tsizes/index']],
                     ['label' => 'Categories', 'url' => ['/tcategories/index']],
                     ['label' => 'Designs', 'url' => ['/tdesign/index']],

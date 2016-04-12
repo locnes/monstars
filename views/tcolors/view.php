@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tcolors */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tcolors', 'url' => ['index']];
+$this->title = $model->color;
+$this->params['breadcrumbs'][] = ['label' => 'Colors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tcolors-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Color: <?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -28,9 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'color',
-            'status',
+            //'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'sort_order',
         ],
     ]) ?>
