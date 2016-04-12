@@ -91,4 +91,17 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+
+    public function actionLayout()
+    {
+
+
+        $this->layout = 'frontEnd';
+
+        return $this->render('index');
+
+    }
+
+
 }

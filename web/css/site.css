@@ -16,10 +16,49 @@ body {
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: black;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    color: white;
 }
+/**
+* added for header
+*/
+
+.jumbotronHeader {
+    text-align: left;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+/**
+ * Progress bars with centered text
+ */
+#headerStatusBar .progress {
+    position: relative;
+}
+
+#headerStatusBar .bar {
+    z-index: 1;
+    position: absolute;
+}
+
+#headerStatusBar .progress-bar .progress-bar-success span {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+
+
+
+
+
+
 
 .jumbotron {
     text-align: center;
