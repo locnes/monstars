@@ -41,11 +41,28 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <? //= $form->field($model, 'fileName')->textInput(['maxlength' => true]) ?>
+
+
+    <?php
+    $title = isset($model->fileName) && !empty($model->fileName) ? $model->fileName : '';
+    if (!empty($title)) {
+        echo Html::img($model->getImageUrl(), [
+            'width' => '100',
+            'style' => 'margin-right: 10px;',
+            'class' => 'pull-left img-thumbnail',
+            'alt' => $title,
+            'title' => $title,
+        ]);
+    }
+    ?>
+
     <?= $form->field($model, 'fileName')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => ['allowedFileExtensions' => ['jpg', 'jpeg', 'gif', 'png']]]) ?>
 
-    <?= $form->field($model, 'categoryId')->dropDownList($model->getCategoryList(), ['prompt' => 'Please choose...']) ?>
+    <div style="clear: both;">
+        <?= $form->field($model, 'categoryId')->dropDownList($model->getCategoryList(), ['prompt' => 'Please choose...']) ?>
+    </div>
 
     <?= $form->field($model, 'status')->dropDownList($model->getStatusList(), ['prompt' => 'Please choose...']) ?>
 
