@@ -16,6 +16,15 @@ $this->params['breadcrumbs'][] = "All Designs";
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    
+    <?php foreach (Yii::$app->session->getAllFlashesNormalized() as $flash) { ?>
+        <div class="alert alert-<?= $flash['key'] ?>" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?= $flash['message'] ?>
+        </div>
+    <?php } ?>
+
+
     <p>
         <?= Html::a('Add new T-shirt design', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -23,7 +32,7 @@ $this->params['breadcrumbs'][] = "All Designs";
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'emptyText' => "No T-Shirt designs found with the given criteria.",
+        'emptyText' => "No T-shirt designs found with the given criteria.",
         'emptyCell' => Html::a('x', ['index']),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -66,7 +75,7 @@ $this->params['breadcrumbs'][] = "All Designs";
                 //'value' => 'category.cat_name',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index) {
-                    return Html::a($model->category->cat_name, ['tcategories/update', 'id' => $model->categoryId]);
+                    return Html::a($model->category->cat_name, ['tcategories/view', 'id' => $model->categoryId]);
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'categoryId', ArrayHelper::map(Tcategories::find()->asArray()->all(), 'id', 'cat_name'), ['class' => 'form-control', 'prompt' => 'all']),
             ],

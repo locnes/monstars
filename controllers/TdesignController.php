@@ -141,13 +141,16 @@ class TdesignController extends Controller
 
         // validate deletion and on failure process any exception 
         // e.g. display an error message 
-        if ($model->delete()) {
-            if (!$model->deleteImage()) {
-                Yii::$app->session->setFlash('error', 'Error deleting related image');
-                die("couldn't delete the related image!!");
+        if ($model->deleteImage()) {
+            if ($model->delete()) {
+                return $this->redirect(['index']);
             }
+        } else {
+            Yii::$app->session->setFlash('danger', 'Error deleting related image for "' . $model->title . '" 
+                T-shirt design. Hence the design itself could not be deleted.');
+            return $this->redirect(['index']);
+            //die("couldn't delete the related image!!");
         }
-        return $this->redirect(['index']);
     }
 
 
