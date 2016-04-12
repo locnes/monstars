@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = "All Designs";
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'emptyText' => "No T-shirt designs found with the given criteria.",
-        'emptyCell' => Html::a('x', ['index']),
+        //'emptyCell' => Html::a('x', ['index']),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = "All Designs";
                     if ($model->fileName != null) {
                         return Html::img($model->getImageUrl(), [
                             'width' => '70',
-                            'class' => 'img-rounded img-thumbnail img-responsive',
+                            'class' => 'img-rounded img-responsive',
                             'alt' => $model->title,
                             'title' => $model->title
                         ]);
@@ -68,6 +68,7 @@ $this->params['breadcrumbs'][] = "All Designs";
                         return "<span class='emptyCell'>none</span>";
                     }
                 },
+                'filter' => false,
             ],
             //'categoryId',
             [
@@ -81,7 +82,10 @@ $this->params['breadcrumbs'][] = "All Designs";
             ],
             // 'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => Html::a('x', ['index']),
+            ],
         ],
     ]); ?>
 
