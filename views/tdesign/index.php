@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = "All Designs";
 
     
     <?php foreach (Yii::$app->session->getAllFlashesNormalized() as $flash) { ?>
-        <div class="alert alert-<?= $flash['key'] ?>" role="alert">
+        <div class="alert alert-<?= $flash['key'] ?> fade in" role="alert">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <?= $flash['message'] ?>
         </div>

@@ -143,6 +143,8 @@ class TdesignController extends Controller
         // e.g. display an error message 
         if ($model->deleteImage()) {
             if ($model->delete()) {
+                Yii::$app->session->setFlash('success', 'Successfully removed "' . $model->title . '" 
+                T-shirt design.');
                 return $this->redirect(['index']);
             }
         } else {

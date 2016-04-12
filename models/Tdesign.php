@@ -93,13 +93,24 @@ class Tdesign extends \yii\db\ActiveRecord
 
 
     /**
+     * fetch stored image file name with absolute path
+     * @return string
+     */
+    public function getAbsoluteImageFilePath()
+    {
+        return isset($this->fileName) ? Yii::getAlias('@webroot') . "/uploads/" . $this->fileName : null;
+    }
+
+
+    /**
      * Process deletion of image
      *
      * @return boolean the status of deletion
      */
     public function deleteImage()
     {
-        $file = $this->getImageFile();
+        $file = $this->getImageFile();  // this doesn't work
+        //$file = $this->getAbsoluteImageFilePath();  // this works
 
         // check if file exists on server
         if (empty($file) || !file_exists($file)) {
