@@ -12,15 +12,6 @@ return array (
                     '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
                 ),
         ),
-    'kartik-v/yii2-krajee-base' =>
-        array(
-            'name' => 'kartik-v/yii2-krajee-base',
-            'version' => '1.8.2.0',
-            'alias' =>
-                array(
-                    '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
-                ),
-        ),
     'kartik-v/yii2-money' =>
         array(
             'name' => 'kartik-v/yii2-money',
@@ -100,6 +91,15 @@ return array (
             'alias' =>
                 array(
                     '@dosamigos/tinymce' => $vendorDir . '/2amigos/yii2-tinymce-widget/src',
+                ),
+        ),
+    'kartik-v/yii2-krajee-base' =>
+        array(
+            'name' => 'kartik-v/yii2-krajee-base',
+            'version' => '1.8.4.0',
+            'alias' =>
+                array(
+                    '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
     ),
   ),
 );
