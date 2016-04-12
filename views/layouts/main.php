@@ -10,6 +10,23 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
+
+$js = <<< 'SCRIPT'
+/* To initialize BS3 tooltips set this below */
+$(function () { 
+    $("[data-toggle='tooltip']").tooltip(); 
+});;
+/* To initialize BS3 popovers set this below */
+$(function () { 
+    $("[data-toggle='popover']").popover({
+        html: 'true', //needed to show html of course
+        placement : 'left',
+       }); 
+});
+SCRIPT;
+// Register tooltip/popover initialization javascript
+$this->registerJs($js);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

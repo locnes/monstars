@@ -62,7 +62,11 @@ $this->params['breadcrumbs'][] = "All Designs";
                             'width' => '70',
                             'class' => 'img-rounded img-responsive',
                             'alt' => $model->title,
-                            'title' => $model->title
+                            'title' => $model->title,
+                            'data-toggle' => 'popover',
+                            'data-trigger' => 'hover',
+                            //'data-placement' => 'top',
+                            'data-content' => '<img src="' . $model->getImageUrl() . '" width="150" />"',
                         ]);
                     } else {
                         return "<span class='emptyCell'>none</span>";
