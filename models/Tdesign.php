@@ -5,6 +5,8 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
+
 
 /**
  * This is the model class for table "Tdesign".
@@ -41,7 +43,7 @@ class Tdesign extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'price', 'description'], 'required'],
+            [['title', 'price', 'description', 'categoryId', 'status'], 'required'],
             [['price'], 'number'],
             [['description'], 'string'],
             [['categoryId'], 'integer'],
@@ -67,6 +69,32 @@ class Tdesign extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+
+    /**
+     * Process upload of image
+     *
+     * @return mixed the uploaded image instance
+     */
+    public function uploadImage()
+    {
+        // get the uploaded file instance. for multiple file uploads
+        // the following data will return an array (you may need to use
+        // getInstances method)
+        $image = UploadedFile::getInstance($this, 'fileName');
+
+        // if no image was uploaded abort the upload
+        if (empty($image)) {
+            return false;
+        }
+
+        // store the source file name
+        $this->fileName = $image->name;
+
+        // the uploaded image instance
+        return $image;
+    }
+
 
 
     /**

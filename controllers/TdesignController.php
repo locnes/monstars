@@ -15,6 +15,10 @@ use yii\web\UploadedFile;
  */
 class TdesignController extends Controller
 {
+
+    public $enableCsrfValidation = false;
+
+
     public function behaviors()
     {
         return [
@@ -80,22 +84,16 @@ class TdesignController extends Controller
             // the following data will return an array
             $image = UploadedFile::getInstance($model, 'fileName');
 
-            //echo "<p>" . Yii::$app->basePath . "</p>>";
-            //var_dump($image);
-
             // store the source file name
             $model->fileName = $image->name;
-            //$ext = end((explode(".", $image->name)));
-            //$ext = $image->extension;
 
-            // generate a unique file name
+            // generate a unique file name (not using for now)
             //$avatar = Yii::$app->security->generateRandomString().".{$ext}";
 
             // the path to save file, you can set an uploadPath
             // in Yii::$app->params (as used in example below)
-            $path = Yii::$app->basePath . "/web/uploads/" . $image->name;
-
-            //die($path);
+            $path = $model->getAbsoluteImageFilePath();
+            //$path = Yii::$app->basePath . "/web/uploads/" . $image->name;
 
             if ($model->save()) {
                 $image->saveAs($path);
@@ -115,17 +113,57 @@ class TdesignController extends Controller
      * @param integer $id
      * @return mixed
      */
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $originalFile = $model->getAbsoluteImageFilePath();
+        $originalFileName = $model->fileName;
+
+        if ($model->load(Yii::$app->request->post())) {
+            // process uploaded image file instance
+            $image = $model->uploadImage();
+
+            // revert back if no valid file instance uploaded
+            if ($image === false) {
+                $model->fileName = $originalFileName;
+            }
+
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) { // check for existence of new image
+                    if (@!unlink($originalFile)) {
+                        Yii::$app->session->setFlash('warning', "There was no original file (" .
+                            $originalFileName . ") to be removed from the filesystem.");
+                    }
+                    $path = $model->getAbsoluteImageFilePath();
+                    $image->saveAs($path);
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                // error in saving model
+                Yii::$app->session->setFlash('danger', "Couldn't save the Tdesign model for \"" .
+                    $model->title . "\" on update action.");
+                return $this->redirect(['index']);
+            }
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
 

@@ -677,4 +677,23 @@ class ActiveRecord extends BaseActiveRecord
         return "<span class='emptyCell'>" . $text . "</span>";
     }
 
+
+    /**
+     * @return string
+     * I'm going to use this to loop through all existing flash messages that have accumluated in any
+     * controller action
+     */
+    public function showFlashMessages()
+    {
+
+        foreach (Yii::$app->session->getAllFlashesNormalized() as $flash) {
+            $msg = "<div class='alert alert-" . $flash['key'] . " fade in' role='alert'>";
+            $msg .= "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+            $msg .= $flash['message'];
+            $msg .= "</div>";
+        }
+
+        return $msg;
+    }
+
 }
