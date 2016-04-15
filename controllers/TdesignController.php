@@ -145,13 +145,17 @@ class TdesignController extends Controller
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) { // check for existence of new image
-                    if (@!unlink($originalFile)) {
+                    if (@!unlink($originalFile)) { // If we can't remove original file because it doesn't exist
                         Yii::$app->session->setFlash('warning', "There was no original file (" .
                             $originalFileName . ") to be removed from the filesystem.");
+                    } else {
+                        // Swapped out original image for a new one; let's tell the user this
+                        Yii::$app->session->setFlash('success', "Swapped one image out for another!");
                     }
                     $path = $model->getAbsoluteImageFilePath();
                     $image->saveAs($path);
                 }
+                Yii::$app->session->setFlash('info', "Sucessfully updated this T-shirt design!");
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 // error in saving model

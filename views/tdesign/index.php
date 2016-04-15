@@ -16,18 +16,11 @@ $this->params['breadcrumbs'][] = "All Designs";
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    
-    <?php foreach (Yii::$app->session->getAllFlashesNormalized() as $flash) { ?>
-        <div class="alert alert-<?= $flash['key'] ?> fade in" role="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?= $flash['message'] ?>
-        </div>
-    <?php } ?>
-
-
     <p>
         <?= Html::a('Add new T-shirt design', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?= Html::showFlashMessages(); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

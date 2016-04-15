@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = "Details about the \"" . $this->title . "\" des
         ]) ?>
     </p>
 
+    <?= Html::showFlashMessages(); ?>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
