@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e5d2612070139a8d5a1ae082ae5c706",
-    "content-hash": "027a998e72273a1dd020701fee8eb61c",
+    "hash": "caa07b063e474b37b0167bc57561d0a7",
+    "content-hash": "fbf489ab6c915da8dfa5d33d061fb658",
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",
@@ -66,6 +66,49 @@
                 "yii2"
             ],
             "time": "2015-03-28 21:53:43"
+        },
+        {
+            "name": "beastbytes/yii2-wizard",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beastbytes/yii2-wizard.git",
+                "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beastbytes/yii2-wizard/zipball/ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+                "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "beastbytes\\wizard\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Yates",
+                    "email": "chris.l.yates@gmail.com"
+                }
+            ],
+            "description": "Yii2 extension to handle multi-form wizards",
+            "keywords": [
+                "Behavior",
+                "Forms",
+                "form",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2015-07-26 20:46:28"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -665,16 +708,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "4.3.8",
+            "version": "4.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "96450a43232ba523ae57d4dc6ea34b8f34e9dd14"
+                "reference": "ee747f1bc97ec8380e7fd8a1ce827be5e735a10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/96450a43232ba523ae57d4dc6ea34b8f34e9dd14",
-                "reference": "96450a43232ba523ae57d4dc6ea34b8f34e9dd14",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/ee747f1bc97ec8380e7fd8a1ce827be5e735a10b",
+                "reference": "ee747f1bc97ec8380e7fd8a1ce827be5e735a10b",
                 "shasum": ""
             },
             "type": "component",
@@ -707,7 +750,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2016-03-15 13:05:10"
+            "time": "2016-04-12 13:26:22"
         },
         {
             "name": "yiisoft/yii2",

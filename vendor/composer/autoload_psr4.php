@@ -21,5 +21,6 @@ return array(
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'dosamigos\\tinymce\\' => array($vendorDir . '/2amigos/yii2-tinymce-widget/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
+    'beastbytes\\wizard\\' => array($vendorDir . '/beastbytes/yii2-wizard'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );

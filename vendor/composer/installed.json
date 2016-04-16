@@ -1068,54 +1068,6 @@
         ]
     },
     {
-        "name": "tinymce/tinymce",
-        "version": "4.3.8",
-        "version_normalized": "4.3.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/tinymce/tinymce-dist.git",
-            "reference": "96450a43232ba523ae57d4dc6ea34b8f34e9dd14"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/96450a43232ba523ae57d4dc6ea34b8f34e9dd14",
-            "reference": "96450a43232ba523ae57d4dc6ea34b8f34e9dd14",
-            "shasum": ""
-        },
-        "time": "2016-03-15 13:05:10",
-        "type": "component",
-        "extra": {
-            "component": {
-                "scripts": [
-                    "tinymce.js",
-                    "plugins/*/plugin.js",
-                    "themes/*/theme.js"
-                ],
-                "files": [
-                    "tinymce.min.js",
-                    "plugins/*/plugin.min.js",
-                    "themes/*/theme.min.js",
-                    "skins/**"
-                ]
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL-2.1"
-        ],
-        "description": "Web based JavaScript HTML WYSIWYG editor control.",
-        "homepage": "http://www.tinymce.com",
-        "keywords": [
-            "editor",
-            "html",
-            "javascript",
-            "richtext",
-            "tinymce",
-            "wysiwyg"
-        ]
-    },
-    {
         "name": "2amigos/yii2-tinymce-widget",
         "version": "1.1.1",
         "version_normalized": "1.1.1.0",
@@ -1302,5 +1254,98 @@
             }
         ],
         "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays)."
+    },
+    {
+        "name": "tinymce/tinymce",
+        "version": "4.3.10",
+        "version_normalized": "4.3.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tinymce/tinymce-dist.git",
+            "reference": "ee747f1bc97ec8380e7fd8a1ce827be5e735a10b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/ee747f1bc97ec8380e7fd8a1ce827be5e735a10b",
+            "reference": "ee747f1bc97ec8380e7fd8a1ce827be5e735a10b",
+            "shasum": ""
+        },
+        "time": "2016-04-12 13:26:22",
+        "type": "component",
+        "extra": {
+            "component": {
+                "scripts": [
+                    "tinymce.js",
+                    "plugins/*/plugin.js",
+                    "themes/*/theme.js"
+                ],
+                "files": [
+                    "tinymce.min.js",
+                    "plugins/*/plugin.min.js",
+                    "themes/*/theme.min.js",
+                    "skins/**"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-2.1"
+        ],
+        "description": "Web based JavaScript HTML WYSIWYG editor control.",
+        "homepage": "http://www.tinymce.com",
+        "keywords": [
+            "editor",
+            "html",
+            "javascript",
+            "richtext",
+            "tinymce",
+            "wysiwyg"
+        ]
+    },
+    {
+        "name": "beastbytes/yii2-wizard",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/beastbytes/yii2-wizard.git",
+            "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/beastbytes/yii2-wizard/zipball/ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+            "reference": "ad776a28a0504ee40e36d1aa179c2e9e3c861992",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "time": "2015-07-26 20:46:28",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "beastbytes\\wizard\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Chris Yates",
+                "email": "chris.l.yates@gmail.com"
+            }
+        ],
+        "description": "Yii2 extension to handle multi-form wizards",
+        "keywords": [
+            "Behavior",
+            "Forms",
+            "form",
+            "wizard",
+            "yii2"
+        ]
     }
 ]

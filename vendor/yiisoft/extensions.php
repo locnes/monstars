@@ -100,6 +100,15 @@ return array (
             'alias' =>
                 array(
                     '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
+                ),
+        ),
+    'beastbytes/yii2-wizard' =>
+        array(
+            'name' => 'beastbytes/yii2-wizard',
+            'version' => '1.0.0.0',
+            'alias' =>
+                array(
+                    '@beastbytes/wizard' => $vendorDir . '/beastbytes/yii2-wizard',
     ),
   ),
 );

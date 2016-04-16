@@ -1,4 +1,4 @@
-// 4.3.8 (2016-03-15)
+// 4.3.10 (2016-04-12)
 
 /**
  * Compiled inline version. (Library mode)
@@ -807,12 +807,12 @@
 
             // Normalize target for WebComponents v0 implementation (in Chrome)
             if (event.path) {
-                event.target = event.path[0];
+                event.target = event.path[0] || event.target;
             }
 
             // Normalize target for WebComponents v1 implementation (standard)
             if (event.deepPath) {
-                event.target = event.deepPath[0];
+                event.target = event.deepPath[0] || event.target;
             }
 
             // Calculate pageX/Y if missing and clientX/Y available
@@ -1791,6 +1791,17 @@
                 doc = node ? node.ownerDocument || node : preferredDoc,
                 parent = doc.defaultView;
 
+            function getTop(win) {
+                // Edge throws a lovely Object expected if you try to get top on a detached reference see #2642
+                try {
+                    return win.top;
+                } catch (ex) {
+                    // Ignore
+                }
+
+                return null;
+            }
+
             // If no document and documentElement is available, return
             if (doc === document || doc.nodeType !== 9 || !doc.documentElement) {
                 return document;
@@ -1807,7 +1818,7 @@
             // If iframe document is assigned to "document" variable and if iframe has been reloaded,
             // IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936
             // IE6-8 do not support the defaultView property so parent will be undefined
-            if (parent && parent !== parent.top) {
+            if (parent && parent !== getTop(parent)) {
                 // IE11 does not have attachEvent, so all must suffer
                 if (parent.addEventListener) {
                     parent.addEventListener("unload", function () {
@@ -16316,6 +16327,18 @@
                     if (ExtendingChar.isExtendingChar(container.data[offset])) {
                         return clientRects;
                     }
+
+                    // WebKit returns two client rects for a position after an extending
+                    // character a\uxxx|b so expand on "b" and collapse to start of "b" box
+                    if (ExtendingChar.isExtendingChar(container.data[offset - 1])) {
+                        range.setStart(container, offset);
+                        range.setEnd(container, offset + 1);
+
+                        if (!isHiddenWhiteSpaceRange(range)) {
+                            addUniqueAndValidRect(collapseAndInflateWidth(getBoundingClientRect(range), false));
+                            return clientRects;
+                        }
+                    }
                 }
 
                 if (offset > 0) {
@@ -17985,8 +18008,7 @@
              */
             getNode: function () {
                 var self = this, rng = self.getRng(), elm;
-                var startContainer = rng.startContainer, endContainer = rng.endContainer;
-                var startOffset = rng.startOffset, endOffset = rng.endOffset, root = self.dom.getRoot();
+                var startContainer, endContainer, startOffset, endOffset, root = self.dom.getRoot();
 
                 function skipEmptyTextNodes(node, forwards) {
                     var orig = node;
@@ -18002,6 +18024,11 @@
                 if (!rng) {
                     return root;
                 }
+
+                startContainer = rng.startContainer;
+                endContainer = rng.endContainer;
+                startOffset = rng.startOffset;
+                endOffset = rng.endOffset;
 
                 if (rng.setStart) {
                     elm = rng.commonAncestorContainer;
@@ -21692,7 +21719,7 @@
                                     block.appendChild(clonedNode);
                                 }
                             }
-                        } while ((node = node.parentNode));
+                        } while ((node = node.parentNode) && node != editableRoot);
                     }
 
                     // BR is needed in empty blocks on non IE browsers
@@ -22921,7 +22948,7 @@
                 var func;
 
                 // Is hidden then return undefined
-                if (editor._isHidden()) {
+                if (editor.quirks.isHidden()) {
                     return;
                 }
 
@@ -22951,7 +22978,7 @@
                 var func;
 
                 // Is hidden then return undefined
-                if (editor._isHidden()) {
+                if (editor.quirks.isHidden()) {
                     return;
                 }
 
@@ -23335,7 +23362,7 @@
                     }
 
                     function moveSelectionToMarker(marker) {
-                        var parentEditableFalseElm, parentNode, nextRng;
+                        var parentEditableFalseElm, parentBlock, nextRng;
 
                         function getContentEditableFalseParent(node) {
                             var root = editor.getBody();
@@ -23396,20 +23423,20 @@
                         }
 
                         // Remove the marker node and set the new range
-                        parentNode = marker.parentNode;
+                        parentBlock = dom.getParent(marker, dom.isBlock);
                         dom.remove(marker);
 
-                        if (dom.isEmpty(parentNode) && dom.isBlock(parentNode)) {
-                            editor.$(parentNode).empty();
+                        if (parentBlock && dom.isEmpty(parentBlock)) {
+                            editor.$(parentBlock).empty();
 
-                            rng.setStart(parentNode, 0);
-                            rng.setEnd(parentNode, 0);
+                            rng.setStart(parentBlock, 0);
+                            rng.setEnd(parentBlock, 0);
 
-                            if (!isTableCell(parentNode) && (nextRng = findNextCaretRng(rng))) {
+                            if (!isTableCell(parentBlock) && (nextRng = findNextCaretRng(rng))) {
                                 rng = nextRng;
-                                dom.remove(parentNode);
+                                dom.remove(parentBlock);
                             } else {
-                                dom.add(parentNode, dom.create('br', {'data-mce-bogus': '1'}));
+                                dom.add(parentBlock, dom.create('br', {'data-mce-bogus': '1'}));
                             }
                         }
 
@@ -24269,6 +24296,27 @@
                 type: type,
                 data: uri[1]
             };
+        };
+
+        URI.getDocumentBaseUrl = function (loc) {
+            var baseUrl;
+
+            // Pass applewebdata:// and other non web protocols though
+            if (loc.protocol.indexOf('http') !== 0 && loc.protocol !== 'file:') {
+                baseUrl = loc.href;
+            } else {
+                baseUrl = loc.protocol + '//' + loc.host + loc.pathname;
+            }
+
+            if (/^[^:]+:\/\/\/?[^\/]+\//.test(baseUrl)) {
+                baseUrl = baseUrl.replace(/[\?#].*$/, '').replace(/[\/\\][^\/]+$/, '');
+
+                if (!/[\/\\]$/.test(baseUrl)) {
+                    baseUrl += '/';
+                }
+            }
+
+            return baseUrl;
         };
 
         return URI;
@@ -25994,6 +26042,24 @@
         return {
             id: function () {
                 return 'mceu_' + (count++);
+            },
+
+            create: function (name, attrs, children) {
+                var elm = document.createElement(name);
+
+                DOMUtils.DOM.setAttribs(elm, attrs);
+
+                if (typeof children === 'string') {
+                    elm.innerHTML = children;
+                } else {
+                    Tools.each(children, function (child) {
+                        if (child.nodeType) {
+                            elm.appendChild(child);
+                        }
+                    });
+                }
+
+                return elm;
             },
 
             createFragment: function (html) {
@@ -27941,7 +28007,7 @@
                     return true;
                 }
 
-                if (/^(button|menuitem|checkbox|tab|menuitemcheckbox|option|gridcell)$/.test(getRole(elm))) {
+                if (/^(button|menuitem|checkbox|tab|menuitemcheckbox|option|gridcell|slider)$/.test(getRole(elm))) {
                     return true;
                 }
 
@@ -28171,6 +28237,10 @@
                 function handleNonTabOrEscEvent(e, handler) {
                     // Ignore non tab keys for text elements
                     if (isTextInputElement(focusedElement)) {
+                        return;
+                    }
+
+                    if (getRole(focusedElement) === 'slider') {
                         return;
                     }
 
@@ -29638,6 +29708,10 @@
                     self._preBodyHtml = '<div class="' + self.classPrefix + 'arrow"></div>';
                     self.classes.add('popover').add('bottom').add(self.isRtl() ? 'end' : 'start');
                 }
+
+                self.aria('label', settings.ariaLabel);
+                self.aria('labelledby', self._id);
+                self.aria('describedby', self.describedBy || self._id + '-none');
             },
 
             fixed: function (state) {
@@ -29852,24 +29926,26 @@
         }
 
         function handleWindowResize() {
-            var lastSize = {
-                w: window.innerWidth,
-                h: window.innerHeight
-            };
+            if (!Env.desktop) {
+                var lastSize = {
+                    w: window.innerWidth,
+                    h: window.innerHeight
+                };
 
-            Delay.setInterval(function () {
-                var w = window.innerWidth,
-                    h = window.innerHeight;
+                Delay.setInterval(function () {
+                    var w = window.innerWidth,
+                        h = window.innerHeight;
 
-                if (lastSize.w != w || lastSize.h != h) {
-                    lastSize = {
-                        w: w,
-                        h: h
-                    };
+                    if (lastSize.w != w || lastSize.h != h) {
+                        lastSize = {
+                            w: w,
+                            h: h
+                        };
 
-                    $(window).trigger('resize');
-                }
-            }, 100);
+                        $(window).trigger('resize');
+                    }
+                }, 100);
+            }
 
             function reposition() {
                 var i, rect = DomUtils.getWindowSize(), layoutRect;
@@ -29947,7 +30023,7 @@
                 self.on('click', function (e) {
                     var closeClass = self.classPrefix + 'close';
 
-                    if (e.target.className.indexOf(closeClass) != -1 || e.target.parentNode.className.indexOf(closeClass) != -1) {
+                    if (DomUtils.hasClass(e.target, closeClass) || DomUtils.hasClass(e.target.parentNode, closeClass)) {
                         self.close();
                     }
                 });
@@ -30256,9 +30332,7 @@
             }
         });
 
-        if (!Env.desktop) {
-            handleWindowResize();
-        }
+        handleWindowResize();
 
         return Window;
     });
@@ -32608,7 +32682,7 @@
              */
             function setGeckoEditingOptions() {
                 function setOpts() {
-                    editor._refreshContentEditable();
+                    refreshContentEditable();
 
                     setEditorCommandState("StyleWithCSS", false);
                     setEditorCommandState("enableInlineTableEditing", false);
@@ -33074,6 +33148,33 @@
                 });
             }
 
+            function refreshContentEditable() {
+                var body, parent;
+
+                // Check if the editor was hidden and the re-initialize contentEditable mode by removing and adding the body again
+                if (isHidden()) {
+                    body = editor.getBody();
+                    parent = body.parentNode;
+
+                    parent.removeChild(body);
+                    parent.appendChild(body);
+
+                    body.focus();
+                }
+            }
+
+            function isHidden() {
+                var sel;
+
+                if (!isGecko) {
+                    return 0;
+                }
+
+                // Weird, wheres that cursor selection?
+                sel = editor.selection.getSel();
+                return (!sel || !sel.rangeCount || sel.rangeCount === 0);
+            }
+
             // All browsers
             removeBlockQuoteOnBackSpace();
             emptyEditorWhenDeleting();
@@ -33139,6 +33240,11 @@
                 blockCmdArrowNavigation();
                 disableBackspaceIntoATable();
             }
+
+            return {
+                refreshContentEditable: refreshContentEditable,
+                isHidden: isHidden
+            };
         };
     });
 
@@ -33479,16 +33585,10 @@
         var modifierNames = Tools.makeMap('alt,ctrl,shift,meta,access');
 
         return function (editor) {
-            var self = this, shortcuts = {};
+            var self = this, shortcuts = {}, pendingPatterns = [];
 
-            function createShortcut(pattern, desc, cmdFunc, scope) {
-                var id, key, shortcut;
-
-                shortcut = {
-                    func: cmdFunc,
-                    scope: scope || editor,
-                    desc: editor.translate(desc)
-                };
+            function parseShortcut(pattern) {
+                var id, key, shortcut = {};
 
                 // Parse modifiers and keys ctrl+alt+b for example
                 each(explode(pattern, '+'), function (value) {
@@ -33540,27 +33640,77 @@
                 return shortcut;
             }
 
+            function createShortcut(pattern, desc, cmdFunc, scope) {
+                var shortcuts;
+
+                shortcuts = Tools.map(explode(pattern, '>'), parseShortcut);
+                shortcuts[shortcuts.length - 1] = Tools.extend(shortcuts[shortcuts.length - 1], {
+                    func: cmdFunc,
+                    scope: scope || editor
+                });
+
+                return Tools.extend(shortcuts[0], {
+                    desc: editor.translate(desc),
+                    subpatterns: shortcuts.slice(1)
+                });
+            }
+
+            function hasModifier(e) {
+                return e.altKey || e.ctrlKey || e.metaKey;
+            }
+
+            function isFunctionKey(e) {
+                return e.keyCode >= 112 && e.keyCode <= 123;
+            }
+
+            function matchShortcut(e, shortcut) {
+                if (!shortcut) {
+                    return false;
+                }
+
+                if (shortcut.ctrl != e.ctrlKey || shortcut.meta != e.metaKey) {
+                    return false;
+                }
+
+                if (shortcut.alt != e.altKey || shortcut.shift != e.shiftKey) {
+                    return false;
+                }
+
+                if (e.keyCode == shortcut.keyCode || (e.charCode && e.charCode == shortcut.charCode)) {
+                    e.preventDefault();
+                    return true;
+                }
+
+                return false;
+            }
+
+            function executeShortcutAction(shortcut) {
+                return shortcut.func ? shortcut.func.call(shortcut.scope) : null;
+            }
+
             editor.on('keyup keypress keydown', function (e) {
-                if ((e.altKey || e.ctrlKey || e.metaKey) && !e.isDefaultPrevented()) {
+                if ((hasModifier(e) || isFunctionKey(e)) && !e.isDefaultPrevented()) {
                     each(shortcuts, function (shortcut) {
-                        if (shortcut.ctrl != e.ctrlKey || shortcut.meta != e.metaKey) {
-                            return;
-                        }
-
-                        if (shortcut.alt != e.altKey || shortcut.shift != e.shiftKey) {
-                            return;
-                        }
-
-                        if (e.keyCode == shortcut.keyCode || (e.charCode && e.charCode == shortcut.charCode)) {
-                            e.preventDefault();
+                        if (matchShortcut(e, shortcut)) {
+                            pendingPatterns = shortcut.subpatterns.slice(0);
 
                             if (e.type == "keydown") {
-                                shortcut.func.call(shortcut.scope);
+                                executeShortcutAction(shortcut);
                             }
 
                             return true;
                         }
                     });
+
+                    if (matchShortcut(e, pendingPatterns[0])) {
+                        if (pendingPatterns.length === 1) {
+                            if (e.type == "keydown") {
+                                executeShortcutAction(pendingPatterns[0]);
+                            }
+                        }
+
+                        pendingPatterns.shift();
+                    }
                 }
             });
 
@@ -33589,7 +33739,7 @@
                     };
                 }
 
-                each(explode(pattern.toLowerCase()), function (pattern) {
+                each(explode(Tools.trim(pattern.toLowerCase())), function (pattern) {
                     var shortcut = createShortcut(pattern, desc, cmdFunc, scope);
                     shortcuts[shortcut.id] = shortcut;
                 });
@@ -35629,6 +35779,18 @@
                     }
                 });
 
+                editor.on('click', function (e) {
+                    var contentEditableRoot;
+
+                    // Prevent clicks on links in a cE=false element
+                    contentEditableRoot = getContentEditableRoot(e.target);
+                    if (contentEditableRoot) {
+                        if (isContentEditableFalse(contentEditableRoot)) {
+                            e.preventDefault();
+                        }
+                    }
+                });
+
                 editor.on('mousedown', function (e) {
                     var contentEditableRoot;
 
@@ -35800,8 +35962,8 @@
                     rootClass + ' .mce-offscreen-selection {' +
                     'position: absolute;' +
                     'left: -9999999999px;' +
-                    'width: 100px' +
-                    'height: 100px' +
+                    'width: 100px;' +
+                    'height: 100px;' +
                     '}' +
                     rootClass + ' *[contentEditable=false] {' +
                     'cursor: default;' +
@@ -37038,7 +37200,7 @@
                         controlElm = rng.item(0);
                     }
 
-                    self._refreshContentEditable();
+                    self.quirks.refreshContentEditable();
 
                     // Move focus to contentEditable=true child if needed
                     contentEditableHost = getContentEditableHost(selection.getNode());
@@ -37149,7 +37311,7 @@
              *
              * @method getLang
              * @param {String} name Name/key to get from the language pack.
-             * @param {String} defaultVal Optional default value to retrive.
+             * @param {String} defaultVal Optional default value to retrieve.
              */
             getLang: function (name, defaultVal) {
                 return (
@@ -37162,7 +37324,7 @@
              * Returns a configuration parameter by name.
              *
              * @method getParam
-             * @param {String} name Configruation parameter to retrive.
+             * @param {String} name Configruation parameter to retrieve.
              * @param {String} defaultVal Optional default value to return.
              * @param {String} type Optional type parameter.
              * @return {String} Configuration parameter value or default value.
@@ -38135,33 +38297,6 @@
 
             _scanForImages: function () {
                 return this.editorUpload.scanForImages();
-            },
-
-            _refreshContentEditable: function () {
-                var self = this, body, parent;
-
-                // Check if the editor was hidden and the re-initialize contentEditable mode by removing and adding the body again
-                if (self._isHidden()) {
-                    body = self.getBody();
-                    parent = body.parentNode;
-
-                    parent.removeChild(body);
-                    parent.appendChild(body);
-
-                    body.focus();
-                }
-            },
-
-            _isHidden: function () {
-                var sel;
-
-                if (!isGecko) {
-                    return 0;
-                }
-
-                // Weird, wheres that cursor selection?
-                sel = this.selection.getSel();
-                return (!sel || !sel.rangeCount || sel.rangeCount === 0);
             }
         };
 
@@ -38486,17 +38621,19 @@
                 // isn't within the body of the activeEditor nor a UI element such as a dialog child control
                 if (!documentFocusInHandler) {
                     documentFocusInHandler = function (e) {
-                        var activeEditor = editorManager.activeEditor;
+                        var activeEditor = editorManager.activeEditor, target;
 
-                        if (activeEditor && e.target.ownerDocument == document) {
+                        target = e.target;
+
+                        if (activeEditor && target.ownerDocument == document) {
                             // Check to make sure we have a valid selection don't update the bookmark if it's
                             // a focusin to the body of the editor see #7025
-                            if (activeEditor.selection && e.target != activeEditor.getBody()) {
+                            if (activeEditor.selection && target != activeEditor.getBody()) {
                                 activeEditor.selection.lastFocusBookmark = createBookmark(activeEditor.dom, activeEditor.lastRng);
                             }
 
                             // Fire a blur event if the element isn't a UI element
-                            if (e.target != document.body && !isUIElement(e.target) && editorManager.focusedEditor == activeEditor) {
+                            if (target != document.body && !isUIElement(target) && editorManager.focusedEditor == activeEditor) {
                                 activeEditor.fire('blur', {focusedEditor: null});
                                 editorManager.focusedEditor = null;
                             }
@@ -38650,6 +38787,7 @@
                 removeEditorFromList(editor);
                 editor.unbindAllNativeEvents();
                 editor.destroy(true);
+                editor.removed = true;
                 editor = null;
             }
 
@@ -38679,7 +38817,7 @@
              * @property minorVersion
              * @type String
              */
-            minorVersion: '3.8',
+            minorVersion: '3.10',
 
             /**
              * Release date of TinyMCE build.
@@ -38687,7 +38825,7 @@
              * @property releaseDate
              * @type String
              */
-            releaseDate: '2016-03-15',
+            releaseDate: '2016-04-12',
 
             /**
              * Collection of editor instances.
@@ -38723,7 +38861,7 @@
                 var self = this, baseURL, documentBaseURL, suffix = "", preInit, src;
 
                 // Get base URL for the current document
-                documentBaseURL = document.location.href;
+                documentBaseURL = URI.getDocumentBaseUrl(document.location);
 
                 // Check if the URL is a document based format like: http://site/dir/file and file:///
                 // leave other formats like applewebdata://... intact
@@ -39914,7 +40052,7 @@
              * Returns the value if the specified key or null if it wasn't found.
              *
              * @method getItem
-             * @param {String} key Key of item to retrive.
+             * @param {String} key Key of item to retrieve.
              * @return {String} Value of the specified item or null if it wasn't found.
              */
             getItem: function (key) {
@@ -45225,8 +45363,12 @@
             return value;
         }
 
+        function setAriaProp(el, name, value) {
+            el.setAttribute('aria-' + name, value);
+        }
+
         function updateSliderHandle(ctrl, value) {
-            var maxHandlePos, shortSizeName, sizeName, stylePosName, styleValue;
+            var maxHandlePos, shortSizeName, sizeName, stylePosName, styleValue, handleEl;
 
             if (ctrl.settings.orientation == "v") {
                 stylePosName = "top";
@@ -45238,11 +45380,17 @@
                 shortSizeName = "w";
             }
 
-            maxHandlePos = (ctrl.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(ctrl.getEl('handle'))[sizeName];
+            handleEl = ctrl.getEl('handle');
+            maxHandlePos = (ctrl.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(handleEl)[sizeName];
 
             styleValue = (maxHandlePos * ((value - ctrl._minValue) / (ctrl._maxValue - ctrl._minValue))) + 'px';
-            ctrl.getEl('handle').style[stylePosName] = styleValue;
-            ctrl.getEl('handle').style.height = ctrl.layoutRect().h + 'px';
+            handleEl.style[stylePosName] = styleValue;
+            handleEl.style.height = ctrl.layoutRect().h + 'px';
+
+            setAriaProp(handleEl, 'valuenow', value);
+            setAriaProp(handleEl, 'valuetext', '' + ctrl.settings.previewFilter(value));
+            setAriaProp(handleEl, 'valuemin', ctrl._minValue);
+            setAriaProp(handleEl, 'valuemax', ctrl._maxValue);
         }
 
         return Widget.extend({
@@ -45272,7 +45420,7 @@
 
                 return (
                     '<div id="' + id + '" class="' + self.classes + '">' +
-                    '<div id="' + id + '-handle" class="' + prefix + 'slider-handle"></div>' +
+                    '<div id="' + id + '-handle" class="' + prefix + 'slider-handle" role="slider" tabindex="-1"></div>' +
                     '</div>'
                 );
             },
@@ -45282,12 +45430,83 @@
             },
 
             postRender: function () {
-                var self = this, startPos, startHandlePos, handlePos = 0, value, minValue, maxValue, maxHandlePos;
-                var screenCordName, stylePosName, sizeName, shortSizeName;
+                var self = this, minValue, maxValue, screenCordName,
+                    stylePosName, sizeName, shortSizeName;
+
+                function toFraction(min, max, val) {
+                    return (val + min) / (max - min);
+                }
+
+                function fromFraction(min, max, val) {
+                    return (val * (max - min)) - min;
+                }
+
+                function handleKeyboard(minValue, maxValue) {
+                    function alter(delta) {
+                        var value;
+
+                        value = self.value();
+                        value = fromFraction(minValue, maxValue, toFraction(minValue, maxValue, value) + (delta * 0.05));
+                        value = constrain(value, minValue, maxValue);
+
+                        self.value(value);
+
+                        self.fire('dragstart', {value: value});
+                        self.fire('drag', {value: value});
+                        self.fire('dragend', {value: value});
+                    }
+
+                    self.on('keydown', function (e) {
+                        switch (e.keyCode) {
+                            case 37:
+                            case 38:
+                                alter(-1);
+                                break;
+
+                            case 39:
+                            case 40:
+                                alter(1);
+                                break;
+                        }
+                    });
+                }
+
+                function handleDrag(minValue, maxValue, handleEl) {
+                    var startPos, startHandlePos, maxHandlePos, handlePos, value;
+
+                    self._dragHelper = new DragHelper(self._id, {
+                        handle: self._id + "-handle",
+
+                        start: function (e) {
+                            startPos = e[screenCordName];
+                            startHandlePos = parseInt(self.getEl('handle').style[stylePosName], 10);
+                            maxHandlePos = (self.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(handleEl)[sizeName];
+                            self.fire('dragstart', {value: value});
+                        },
+
+                        drag: function (e) {
+                            var delta = e[screenCordName] - startPos;
+
+                            handlePos = constrain(startHandlePos + delta, 0, maxHandlePos);
+                            handleEl.style[stylePosName] = handlePos + 'px';
+
+                            value = minValue + (handlePos / maxHandlePos) * (maxValue - minValue);
+                            self.value(value);
+
+                            self.tooltip().text('' + self.settings.previewFilter(value)).show().moveRel(handleEl, 'bc tc');
+
+                            self.fire('drag', {value: value});
+                        },
+
+                        stop: function () {
+                            self.tooltip().hide();
+                            self.fire('dragend', {value: value});
+                        }
+                    });
+                }
 
                 minValue = self._minValue;
                 maxValue = self._maxValue;
-                value = self.value();
 
                 if (self.settings.orientation == "v") {
                     screenCordName = "screenY";
@@ -45303,35 +45522,8 @@
 
                 self._super();
 
-                self._dragHelper = new DragHelper(self._id, {
-                    handle: self._id + "-handle",
-
-                    start: function (e) {
-                        startPos = e[screenCordName];
-                        startHandlePos = parseInt(self.getEl('handle').style[stylePosName], 10);
-                        maxHandlePos = (self.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(self.getEl('handle'))[sizeName];
-                        self.fire('dragstart', {value: value});
-                    },
-
-                    drag: function (e) {
-                        var delta = e[screenCordName] - startPos, handleEl = self.getEl('handle');
-
-                        handlePos = constrain(startHandlePos + delta, 0, maxHandlePos);
-                        handleEl.style[stylePosName] = handlePos + 'px';
-
-                        value = minValue + (handlePos / maxHandlePos) * (maxValue - minValue);
-                        self.value(value);
-
-                        self.tooltip().text('' + self.settings.previewFilter(value)).show().moveRel(handleEl, 'bc tc');
-
-                        self.fire('drag', {value: value});
-                    },
-
-                    stop: function () {
-                        self.tooltip().hide();
-                        self.fire('dragend', {value: value});
-                    }
-                });
+                handleKeyboard(minValue, maxValue, self.getEl('handle'));
+                handleDrag(minValue, maxValue, self.getEl('handle'));
             },
 
             repaint: function () {
@@ -45780,10 +45972,10 @@
      * @extends tinymce.ui.Widget
      */
     define("tinymce/ui/TextBox", [
-        "tinymce/ui/Widget"
-    ], function (Widget) {
-        "use strict";
-
+        "tinymce/ui/Widget",
+        "tinymce/util/Tools",
+        "tinymce/ui/DomUtils"
+    ], function (Widget, Tools, DomUtils) {
         return Widget.extend({
             /**
              * Constructs a instance with the specified settings.
@@ -45884,38 +46076,33 @@
              * @return {String} HTML representing the control.
              */
             renderHtml: function () {
-                var self = this, id = self._id, settings = self.settings, value = self.encode(self.state.get('value'), false), extraAttrs = '';
+                var self = this, settings = self.settings, attrs, elm;
 
-                if ("spellcheck" in settings) {
-                    extraAttrs += ' spellcheck="' + settings.spellcheck + '"';
-                }
+                attrs = {
+                    id: self._id,
+                    hidefocus: '1'
+                };
 
-                if (settings.maxLength) {
-                    extraAttrs += ' maxlength="' + settings.maxLength + '"';
-                }
+                Tools.each([
+                    'rows', 'spellcheck', 'maxLength', 'size', 'readonly', 'min',
+                    'max', 'step', 'list', 'pattern', 'placeholder', 'required', 'multiple'
+                ], function (name) {
+                    attrs[name] = settings[name];
+                });
 
-                if (settings.size) {
-                    extraAttrs += ' size="' + settings.size + '"';
+                if (self.disabled()) {
+                    attrs.disabled = 'disabled';
                 }
 
                 if (settings.subtype) {
-                    extraAttrs += ' type="' + settings.subtype + '"';
+                    attrs.type = settings.subtype;
                 }
 
-                if (self.disabled()) {
-                    extraAttrs += ' disabled="disabled"';
-                }
+                elm = DomUtils.create(settings.multiline ? 'textarea' : 'input', attrs);
+                elm.value = self.state.get('value');
+                elm.className = self.classes;
 
-                if (settings.multiline) {
-                    return (
-                        '<textarea id="' + id + '" class="' + self.classes + '" ' +
-                        (settings.rows ? ' rows="' + settings.rows + '"' : '') +
-                        ' hidefocus="1"' + extraAttrs + '>' + value +
-                        '</textarea>'
-                    );
-                }
-
-                return '<input id="' + id + '" class="' + self.classes + '" value="' + value + '" hidefocus="1"' + extraAttrs + ' />';
+                return elm.outerHTML;
             },
 
             value: function (value) {
@@ -45940,6 +46127,7 @@
             postRender: function () {
                 var self = this;
 
+                self.getEl().value = self.state.get('value');
                 self._super();
 
                 self.$el.on('change', function (e) {
