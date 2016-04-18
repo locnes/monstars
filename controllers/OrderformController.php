@@ -14,7 +14,7 @@ class WizardController extends Controller
         switch ($action->id) {
             case 'orderForm':
                 $config = [
-                    'steps' => ['profile', 'address', 'phoneNumber', 'user'],
+                    'steps' => ['orderformStep1', 'orderformStep2', 'orderformStep3', 'orderformStep4'],
                     'events' => [
                         WizardBehavior::EVENT_WIZARD_STEP => [$this, $action->id . 'WizardStep'],
                         WizardBehavior::EVENT_AFTER_WIZARD => [$this, $action->id . 'AfterWizard'],
