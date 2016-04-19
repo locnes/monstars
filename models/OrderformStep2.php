@@ -22,7 +22,7 @@ class OrderformStep2 extends Model
     public function rules()
     {
         return [
-            [['type_id', 'color_id'], 'safe']
+            [['design_id'], 'safe'],
         ];
     }
 
