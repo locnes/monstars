@@ -100,6 +100,7 @@ class SiteController extends Controller
         $this->layout = 'frontEnd';
 
         return $this->render('index');
+//        return $this->render('//orderform/step1');
 
     }
 

@@ -23,7 +23,15 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class
+<div class="col-md-12">
+    <?= Html::img('@web/images/Monstars_Logo.gif', ['alt'=>'Monstars Logo', 'class'=>'pull-right img-responsive']);?>
+    <div class="page-logo">
+        <h1>
+            LayoutIt! <small>Custum T-shirts</small>
+        </h1>
+    </div>
+</div>
+
 
 
 
@@ -121,15 +129,17 @@ AppAsset::register($this);
 
 
 
+            <div class="container">
+                <div class="wizard">
+                    <section>
+                        <?= $content ?>
 
-            <?= $content ?>
-
-
-            <div class="jumbotron">
-                <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
-                </p>
+                    </section>
+                </div>
             </div>
+
+
+
         </div>
     </div>
 </div>
