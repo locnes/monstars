@@ -64,6 +64,10 @@ $this->registerJs($js);
                     ['label' => 'Sizes', 'url' => ['/tsizes/index']],
                     ['label' => 'Categories', 'url' => ['/tcategories/index']],
                     ['label' => 'Designs', 'url' => ['/tdesign/index']],
+
+                    '<li class="divider"></li>',
+                    '<li class="dropdown-header">QuickLinks</li>',
+                    ['label' => 'frontEnd Test', 'url' => ['/site/layout']],
                 ],
             ],
             /*
@@ -93,7 +97,7 @@ $this->registerJs($js);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Monstars <?= date('Y') ?></p>
+        <p class="pull-left">&copy; CRATOLSEN SPHERE <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
