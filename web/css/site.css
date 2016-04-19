@@ -1,6 +1,10 @@
 html,
 body {
     height: 100%;
+    /**
+    * added to support Curtis' design
+    */
+    background-color: #662D91;
 }
 
 .wrap {

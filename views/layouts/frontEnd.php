@@ -23,6 +23,13 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
+<div class
+
+
+
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
