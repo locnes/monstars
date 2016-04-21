@@ -60,6 +60,7 @@ class Application extends \yii\base\Application
         Yii::setAlias('@webroot', dirname($request->getScriptFile()));
         Yii::setAlias('@web', $request->getBaseUrl());
         Yii::setAlias('@images', '@web/images');
+        Yii::setAlias('@uploads', '@web/uploads');
 
         parent::bootstrap();
     }
