@@ -11,9 +11,12 @@ namespace app\models;
 use yii\base\Model;
 
 
-class OrderformStep2 extends Model
+class Step1 extends Model
 {
-    public $design_id;
+    public $size_id;
+    public $type_id;
+    public $color_id;
+    public $quantity;
 
 
     /**
@@ -22,7 +25,7 @@ class OrderformStep2 extends Model
     public function rules()
     {
         return [
-            [['design_id'], 'safe'],
+            [['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
 

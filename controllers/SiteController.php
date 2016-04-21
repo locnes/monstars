@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\ContactForm;
+use app\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use yii\web\Controller;
 
 class SiteController extends Controller
 {
@@ -100,7 +100,7 @@ class SiteController extends Controller
         $this->layout = 'frontEnd';
 
         return $this->render('index');
-//        return $this->render('//orderform/step1');
+//        return $this->render('//order/step1');
 
     }
 

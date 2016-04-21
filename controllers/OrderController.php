@@ -1,20 +1,22 @@
 <?php
-namespace beastbytes\wizard\controllers;
+
+namespace app\controllers;
 
 use beastbytes\wizard\WizardBehavior;
 use Yii;
 use yii\web\Controller;
 
-class WizardController extends Controller
+
+class OrderController extends Controller
 {
 
     public function beforeAction($action)
     {
         $config = [];
         switch ($action->id) {
-            case 'orderForm':
+            case 'form':
                 $config = [
-                    'steps' => ['orderformStep1', 'orderformStep2', 'orderformStep3', 'orderformStep4'],
+                    'steps' => ['step1', 'step2', 'step3', 'step4'],
                     'events' => [
                         WizardBehavior::EVENT_WIZARD_STEP => [$this, $action->id . 'WizardStep'],
                         WizardBehavior::EVENT_AFTER_WIZARD => [$this, $action->id . 'AfterWizard'],
@@ -22,11 +24,8 @@ class WizardController extends Controller
                     ]
                 ];
                 break;
-
             case 'resume':
                 $config = ['steps' => []]; // force attachment of WizardBehavior
-                break;
-
             default:
                 break;
         }
@@ -46,7 +45,7 @@ class WizardController extends Controller
     }
 
 
-    public function actionOrderForm($step = null)
+    public function actionForm($step = null)
     {
         //if ($step===null) $this->resetWizard();
         return $this->step($step);
@@ -58,10 +57,11 @@ class WizardController extends Controller
      * The event handler must set $event->handled=true for the wizard to continue
      * @param WizardEvent The event
      */
-    public function orderFormWizardStep($event)
+    public function formWizardStep($event)
     {
         if (empty($event->stepData)) {
-            $modelName = 'backend\\models\\wizard\\orderForm\\' . ucfirst($event->step);
+            //$modelName = 'models\\order\\' . ucfirst($event->step);
+            $modelName = 'app\models\\' . ucfirst($event->step);
             $model = new $modelName();
         } else {
             $model = $event->stepData;
@@ -82,8 +82,9 @@ class WizardController extends Controller
             } elseif ($event->n < 2 && isset($post['add'])) {
                 $event->nextStep = WizardBehavior::DIRECTION_REPEAT;
             }
+
         } else {
-            $event->data = $this->render('orderForm\\' . $event->step, compact('event', 'model'));
+            $event->data = $this->render('form/' . $event->step, compact('event', 'model'));
         }
     }
 
@@ -92,17 +93,17 @@ class WizardController extends Controller
      */
     public function invalidStep($event)
     {
-        $event->data = $this->render('invalidStep', compact('event'));
+        $event->data = $this->render('form/invalidStep', compact('event'));
         $event->continue = false;
     }
 
     /**
-     * OrderForm wizard has ended; the reason can be determined by the
+     * Form wizard has ended; the reason can be determined by the
      * step parameter: TRUE = wizard completed, FALSE = wizard did not start,
      * <string> = the step the wizard stopped at
      * @param WizardEvent The event
      */
-    public function orderFormAfterWizard($event)
+    public function formAfterWizard($event)
     {
         if (is_string($event->step)) {
             $uuid = sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -113,30 +114,30 @@ class WizardController extends Controller
                 mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
             );
 
-            $orderFormDir = Yii::getAlias('@runtime/orderForm');
-            $orderFormDirReady = true;
-            if (!file_exists($orderFormDir)) {
-                if (!mkdir($orderFormDir) || !chmod($orderFormDir, 0775)) {
-                    $orderFormDirReady = false;
+            $registrationDir = Yii::getAlias('@runtime/order');
+            $registrationDirReady = true;
+            if (!file_exists($registrationDir)) {
+                if (!mkdir($registrationDir) || !chmod($registrationDir, 0775)) {
+                    $registrationDirReady = false;
                 }
             }
-            if ($orderFormDirReady && file_put_contents(
-                    $orderFormDir . DIRECTORY_SEPARATOR . $uuid,
+            if ($registrationDirReady && file_put_contents(
+                    $registrationDir . DIRECTORY_SEPARATOR . $uuid,
                     $event->sender->pauseWizard()
                 )
             ) {
-                $event->data = $this->render('orderForm\\paused', compact('uuid'));
+                $event->data = $this->render('form/paused', compact('uuid'));
             } else {
-                $event->data = $this->render('orderForm\\notPaused');
+                $event->data = $this->render('form/notPaused');
             }
         } elseif ($event->step === null) {
-            $event->data = $this->render('orderForm\\cancelled');
+            $event->data = $this->render('form/cancelled');
         } elseif ($event->step) {
-            $event->data = $this->render('orderForm\\complete', [
+            $event->data = $this->render('form/complete', [
                 'data' => $event->stepData
             ]);
         } else {
-            $event->data = $this->render('orderForm\\notStarted');
+            $event->data = $this->render('order/notStarted');
         }
     }
 
@@ -147,14 +148,15 @@ class WizardController extends Controller
      */
     public function actionResume($uuid)
     {
-        $orderFormFile = Yii::getAlias('@runtime/orderForm') . DIRECTORY_SEPARATOR . $uuid;
-        if (file_exists($orderFormFile)) {
-            $this->resumeWizard(@file_get_contents($orderFormFile));
-            unlink($orderFormFile);
-            $this->redirect(['orderForm']);
+        $registrationFile = Yii::getAlias('@runtime/form') . DIRECTORY_SEPARATOR . $uuid;
+        if (file_exists($registrationFile)) {
+            $this->resumeWizard(@file_get_contents($registrationFile));
+            unlink($registrationFile);
+            $this->redirect(['order']);
         } else {
-            return $this->render('orderForm\\notResumed');
+            return $this->render('form/notResumed');
         }
     }
+
 
 }

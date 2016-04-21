@@ -11,6 +11,6 @@ namespace app\models;
 use yii\base\Model;
 
 
-class OrderformStep4 extends Model
+class Step4 extends Model
 {
 }

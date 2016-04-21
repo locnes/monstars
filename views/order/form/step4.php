@@ -9,11 +9,8 @@ echo WizardMenu::widget(['step' => $event->step, 'wizard' => $event->sender]);
 
 
 $form = ActiveForm::begin();
-// All of the code to lay out the "step 4" stage should live right here, like what I have below:
-echo $form->field($model, 'field1');
-echo $form->field($model, 'field2');
-echo $form->field($model, 'field3');
-echo $form->field($model, 'field4');
+// All of the code to lay out the "step 4" stage should live right here:
+
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
 echo Html::submitButton('Prev', ['class' => 'button', 'name' => 'prev', 'value' => 'prev']);
