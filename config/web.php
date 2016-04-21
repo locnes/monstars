@@ -56,10 +56,6 @@ $config = [
                 ],
             ],
         ],
-        'aliases' => [
-            'class' => 'app\components\Aliases',
-            '@images' => '@app/web/images',
-        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,

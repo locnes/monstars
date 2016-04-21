@@ -4,7 +4,6 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
-
 use yii\helpers\Html;
 
 
@@ -24,10 +23,11 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="col-md-12">
-    <?= Html::img('@web/images/Monstars_Logo.gif', ['alt'=>'Monstars Logo', 'class'=>'pull-right img-responsive']);?>
+    <?= Html::img('@images/Monstars_Logo.gif', ['alt' => 'Monstars Logo', 'class' => 'pull-right img-responsive']); ?>
     <div class="page-logo">
         <h1>
-            LayoutIt! <small>Custum T-shirts</small>
+            LayoutIt!
+            <small>Custom T-shirts</small>
         </h1>
     </div>
 </div>
