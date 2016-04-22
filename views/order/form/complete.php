@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -6,8 +7,9 @@ $this->title = 'Order Completed';
 
 //echo $event->sender->menu->run();
 
+
 echo Html::beginTag('div', ['class' => 'section']);
-echo Html::tag('h2', 'Step 1');
+echo Html::tag('h2', 'T-Shirt Characteristics');
 echo DetailView::widget([
     'model' => $data['step1'][0],
     'attributes' => [
@@ -20,39 +22,42 @@ echo DetailView::widget([
 echo Html::endTag('div');
 
 
+
 echo Html::beginTag('div', ['class' => 'section']);
-echo Html::tag('h2', 'Address');
+echo Html::tag('h2', 'Design chosen');
 echo DetailView::widget([
-    'model' => $data['address'][0],
+    'model' => $data['step2'][0],
     'attributes' => [
-        'street_address',
-        'locality',
-        'region',
-        'postal_code'
+        'design_id'
     ]
 ]);
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'section']);
-echo Html::tag('h2', 'Phone Number(s)');
-foreach ($data['phoneNumber'] as $phoneNumber) {
-    echo DetailView::widget([
-        'model' => $phoneNumber,
-        'attributes' => [
-            'type',
-            'value'
-        ]
-    ]);
-}
-echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'section']);
-echo Html::tag('h2', 'User');
+echo Html::tag('h2', 'Customer details');
 echo DetailView::widget([
-    'model' => $data['user'][0],
+    'model' => $data['step3'][0],
     'attributes' => [
-        'username',
-        'password'
+        'first_name',
+        'last_name',
+        'address',
+        'city',
+        'state',
+        'zipcode',
+        'email',
+        'phone_number'
+    ]
+]);
+echo Html::endTag('div');
+
+
+echo Html::beginTag('div', ['class' => 'section']);
+echo Html::tag('h2', 'Order status');
+echo DetailView::widget([
+    'model' => $data['step4'][0],
+    'attributes' => [
+        'order_status'
     ]
 ]);
 echo Html::endTag('div');

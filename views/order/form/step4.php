@@ -10,6 +10,8 @@ echo WizardMenu::widget(['step' => $event->step, 'wizard' => $event->sender]);
 
 $form = ActiveForm::begin();
 // All of the code to lay out the "step 4" stage should live right here:
+echo $form->field($model, 'order_status');
+
 
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);

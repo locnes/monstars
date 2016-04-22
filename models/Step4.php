@@ -13,4 +13,19 @@ use yii\base\Model;
 
 class Step4 extends Model
 {
+    public $order_status;
+
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['order_status'], 'required'],
+            //[['order_status'], 'safe'],
+        ];
+    }
+
+
 }

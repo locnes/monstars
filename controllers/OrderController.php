@@ -15,6 +15,7 @@ class OrderController extends Controller
         $config = [];
         switch ($action->id) {
             case 'form':
+                $this->layout = 'frontEnd';
                 $config = [
                     'steps' => ['step1', 'step2', 'step3', 'step4'],
                     'events' => [
@@ -114,15 +115,15 @@ class OrderController extends Controller
                 mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
             );
 
-            $registrationDir = Yii::getAlias('@runtime/order');
-            $registrationDirReady = true;
-            if (!file_exists($registrationDir)) {
-                if (!mkdir($registrationDir) || !chmod($registrationDir, 0775)) {
-                    $registrationDirReady = false;
+            $orderDir = Yii::getAlias('@runtime/orders');
+            $orderDirReady = true;
+            if (!file_exists($orderDir)) {
+                if (!mkdir($orderDir) || !chmod($orderDir, 0775)) {
+                    $orderDirReady = false;
                 }
             }
-            if ($registrationDirReady && file_put_contents(
-                    $registrationDir . DIRECTORY_SEPARATOR . $uuid,
+            if ($orderDirReady && file_put_contents(
+                    $orderDir . DIRECTORY_SEPARATOR . $uuid,
                     $event->sender->pauseWizard()
                 )
             ) {
@@ -137,7 +138,7 @@ class OrderController extends Controller
                 'data' => $event->stepData
             ]);
         } else {
-            $event->data = $this->render('order/notStarted');
+            $event->data = $this->render('form/notStarted');
         }
     }
 
@@ -148,11 +149,11 @@ class OrderController extends Controller
      */
     public function actionResume($uuid)
     {
-        $registrationFile = Yii::getAlias('@runtime/form') . DIRECTORY_SEPARATOR . $uuid;
-        if (file_exists($registrationFile)) {
-            $this->resumeWizard(@file_get_contents($registrationFile));
-            unlink($registrationFile);
-            $this->redirect(['order']);
+        $orderFile = Yii::getAlias('@runtime/orders') . DIRECTORY_SEPARATOR . $uuid;
+        if (file_exists($orderFile)) {
+            $this->resumeWizard(@file_get_contents($orderFile));
+            unlink($orderFile);
+            $this->redirect(['form']);
         } else {
             return $this->render('form/notResumed');
         }

@@ -23,7 +23,7 @@ class Step2 extends Model
     {
         return [
             [['design_id'], 'required'],
-            [['design_id'], 'safe'],
+            //[['design_id'], 'safe'],
         ];
     }
 
