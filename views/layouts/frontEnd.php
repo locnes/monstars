@@ -85,40 +85,7 @@ AppAsset::register($this);
                                     </li>
                                 </ul>
                             </div>
-
-                            <form role="form">
-                                <div class="tab-content">
-                                    <div class="tab-pane active" role="tabpanel" id="step1">
-                                        <h3>Step 1</h3>
-                                        <p>Choose Your Shirt & Type</p>
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-primary next-step">Next Step</button></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="step2">
-                                        <h3>Step 2</h3>
-                                        <p>Choose Your Design</p>
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                            <li><button type="button" class="btn btn-primary next-step">Next Step</button></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="step3">
-                                        <h3>Step 3</h3>
-                                        <p>Check Out</p>
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                            <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Next Step</button></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="complete">
-                                        <h3>Complete</h3>
-                                        <p>Enjoy Your New Shirt</p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
+                            
                         </div>
                     </section>
                 </div>
@@ -132,8 +99,7 @@ AppAsset::register($this);
             <div class="container">
                 <div class="wizard">
                     <section>
-                        <?= $content ?>
-
+                        <?= $content; ?>
                     </section>
                 </div>
             </div>

@@ -8,6 +8,10 @@ $this->title = 'Order Completed';
 //echo $event->sender->menu->run();
 
 
+echo Html::tag('h1', Html::encode("Order Summary"));
+echo Html::tag('h3', Html::encode("An email confirmation will arrive shortly."));
+
+
 echo Html::beginTag('div', ['class' => 'section']);
 echo Html::tag('h2', 'T-Shirt Characteristics');
 echo DetailView::widget([

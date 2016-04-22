@@ -7,6 +7,8 @@ $this->title = 'Order Form';
 
 echo WizardMenu::widget(['step' => $event->step, 'wizard' => $event->sender]);
 
+echo Html::tag('h1', Html::encode("Step 3"));
+echo Html::tag('h3', Html::encode("Checkout"));
 
 $form = ActiveForm::begin();
 // All of the code to lay out the "step 3" stage should live right here, like what I have below:
