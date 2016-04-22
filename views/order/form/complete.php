@@ -7,17 +7,18 @@ $this->title = 'Order Completed';
 //echo $event->sender->menu->run();
 
 echo Html::beginTag('div', ['class' => 'section']);
-echo Html::tag('h2', 'Profile');
+echo Html::tag('h2', 'Step 1');
 echo DetailView::widget([
-    'model' => $data['profile'][0],
+    'model' => $data['step1'][0],
     'attributes' => [
-        'honorific_prefix',
-        'given_name',
-        'family_name',
-        'date_of_birth'
+        'size_id',
+        'type_id',
+        'color_id',
+        'quantity'
     ]
 ]);
 echo Html::endTag('div');
+
 
 echo Html::beginTag('div', ['class' => 'section']);
 echo Html::tag('h2', 'Address');
