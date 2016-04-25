@@ -10,16 +10,16 @@ echo WizardMenu::pre();
 echo WizardMenu::widget([
     'step' => $event->step,
     'wizard' => $event->sender,
+    /*
     'items' => [
-        /*
         ['template' => '<a href="{url}" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                             <span class="round-tab">
                                 {label}
                             </span>
                         </a>'],
-        */
         ['label' => '<i class="glyphicon glyphicon-piggy-bank"></i>'],
     ],
+    */
     'encodeLabels' => false,
 ]);
 echo WizardMenu::post();

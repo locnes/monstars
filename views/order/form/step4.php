@@ -9,6 +9,7 @@ echo WizardMenu::pre();
 echo WizardMenu::widget([
     'step' => $event->step,
     'wizard' => $event->sender,
+    /*
     'items' => [
         ['template' => '<a href="{url}" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
                             <span class="round-tab">
@@ -17,6 +18,7 @@ echo WizardMenu::widget([
                         </a>'],
         ['label' => '<i class="glyphicon glyphicon-ok-sign"></i>'],
     ],
+    */
     'encodeLabels' => false,
 ]);
 echo WizardMenu::post();

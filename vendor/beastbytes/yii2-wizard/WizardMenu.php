@@ -25,13 +25,11 @@ class WizardMenu extends Menu
      * while `{label}` will be replaced with the link text.
      * This property will be overridden by the `template` option set in individual menu items via [[items]].
      */
-
     public $linkTemplate = '<a href="{url}" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
                             <span class="round-tab">
                                 {label}
                             </span>
                             </a>';
-
     //<i class="glyphicon glyphicon-folder-open"></i>
 
 
