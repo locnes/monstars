@@ -29,9 +29,9 @@ class Step3 extends Model
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'email', 'phone_number'], 'required'],
+            //[['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'email', 'phone_number'], 'required'],
             ['email', 'email'],
-            //[['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'email', 'phone_number'], 'safe'],
+            [['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'email', 'phone_number'], 'safe'],
         ];
     }
 

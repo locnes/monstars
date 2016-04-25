@@ -5,9 +5,26 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Order Form';
 
-echo WizardMenu::widget(['step' => $event->step, 'wizard' => $event->sender]);
 
-echo Html::tag('h1', Html::encode("Step 1"));
+echo WizardMenu::pre();
+echo WizardMenu::widget([
+    'step' => $event->step,
+    'wizard' => $event->sender,
+    'items' => [
+        /*
+        ['template' => '<a href="{url}" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                {label}
+                            </span>
+                        </a>'],
+        */
+        ['label' => '<i class="glyphicon glyphicon-folder-open"></i>'],
+    ],
+    'encodeLabels' => false,
+]);
+echo WizardMenu::post();
+
+
 echo Html::tag('h3', Html::encode("Choose your Shirt & Type"));
 
 $form = ActiveForm::begin();

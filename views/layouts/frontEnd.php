@@ -45,7 +45,8 @@ AppAsset::register($this);
                 <h1>Designs For Shirts In Mind</h1>
             </div>
 
-            <div class="container">
+            <?php /*
+            <div class="container" style="display: none;">
                 <div class="row">
                     <section>
                         <div class="wizard">
@@ -85,11 +86,12 @@ AppAsset::register($this);
                                     </li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                     </section>
                 </div>
             </div>
+            */ ?>
 
 
 
@@ -97,11 +99,11 @@ AppAsset::register($this);
 
 
             <div class="container">
-                <div class="wizard">
-                    <section>
+                <section>
+                    <div class='wizard'>
                         <?= $content; ?>
-                    </section>
-                </div>
+                    </div><!-- closes wizard div from WizardMenu::post() -->
+                </section>
             </div>
 
 

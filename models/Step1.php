@@ -25,8 +25,8 @@ class Step1 extends Model
     public function rules()
     {
         return [
-            [['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
-            //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
+            //[['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
+            [['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
 

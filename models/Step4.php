@@ -22,8 +22,8 @@ class Step4 extends Model
     public function rules()
     {
         return [
-            [['order_status'], 'required'],
-            //[['order_status'], 'safe'],
+            //[['order_status'], 'required'],
+            [['order_status'], 'safe'],
         ];
     }
 
