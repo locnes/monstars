@@ -6,6 +6,16 @@ body {
     */
 
 }
+/**
+*
+*/
+.body-content{
+    border-radius: 5px 5px 65px 5px;
+    background: #ccff99;
+    padding: 20px;
+
+
+}
 
 .orderForm {
     background: #662D91 url("/monstars/web/images/abstractBackground.gif") no-repeat right top fixed;
@@ -37,8 +47,11 @@ body {
 .jumbotronHeader {
     text-align: left;
     background-color: black;
-    color: white;
-    padding: 10px;
+    color: #ccff99;
+
+
+    border-radius: 20px 20px 20px 20px;
+    padding: 4px 1px 5px 15px;
 }
 
 /**
@@ -72,6 +85,8 @@ body {
 .wizard {
     margin: 20px auto;
     background: #fff;
+    border-radius: 70px 5px 70px 5px;
+    padding: 5px 5px 5px 5px;
 }
 
 .wizard .nav-tabs {
