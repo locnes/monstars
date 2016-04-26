@@ -9,6 +9,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 
 class Step2 extends Model
@@ -25,6 +26,25 @@ class Step2 extends Model
             //[['design_id'], 'required'],
             [['design_id'], 'safe'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'design_id' => 'Pick A F*cking Shirt',
+        ];
+    }
+
+
+
+
+    public static function getDesignList()
+    {
+        $options = Tdesign::find()->asArray()->where(['status' => 'Y'])->all();
+        return Arrayhelper::map($options, 'id', 'title');
     }
 
 }

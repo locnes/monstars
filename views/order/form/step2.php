@@ -32,6 +32,20 @@ $form = ActiveForm::begin();
 echo $form->field($model, 'design_id');
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
+
+
+
+//echo $form->field($model, 'type_id');
+echo $form->field($model, 'design_id')->dropDownList($model->getDesignList(), ['prompt' => 'Please choose...']);
+
+
+
+
+
+
+
+
+
 echo Html::submitButton('Prev', ['class' => 'button', 'name' => 'prev', 'value' => 'prev']);
 echo Html::submitButton('Next', ['class' => 'button', 'name' => 'next', 'value' => 'next']);
 echo Html::submitButton('Pause', ['class' => 'button', 'name' => 'pause', 'value' => 'pause']);
