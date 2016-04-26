@@ -19,7 +19,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="orderForm">
 <?php $this->beginBody() ?>
 
 <div class="col-md-12">
@@ -115,7 +115,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Monstars <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Cratolsen <?= date('Y') ?></p>
 
         <p class="pull-right"><?//= Yii::powered() ?></p>
     </div>
