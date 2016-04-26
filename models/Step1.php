@@ -27,6 +27,9 @@ class Step1 extends Model
     {
         return [
             [['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
+            [['size_id', 'message' => 'Select the color of your T-shirt']],
+            [['type_id', 'message' => 'What type of shirt do you want?']],
+            [['color_id', 'message' => 'What color shirt do you want?']],
             [['quantity'], 'integer', 'message' => 'Pick a fucking number!'],
             //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];

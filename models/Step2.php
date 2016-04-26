@@ -23,8 +23,8 @@ class Step2 extends Model
     public function rules()
     {
         return [
-            //[['design_id'], 'required'],
-            [['design_id'], 'safe'],
+            [['design_id'], 'required', 'message' => 'You\'ve got to pick a T-shirt design!'],
+            //[['design_id'], 'safe'],
         ];
     }
 
@@ -39,8 +39,10 @@ class Step2 extends Model
     }
 
 
-
-
+    /**
+     * Returns an array of all of the "live" T-shirt designs
+     * @return array
+     */
     public static function getDesignList()
     {
         $options = Tdesign::find()->asArray()->where(['status' => 'Y'])->all();
