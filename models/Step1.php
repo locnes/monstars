@@ -26,8 +26,22 @@ class Step1 extends Model
     public function rules()
     {
         return [
-            //[['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
-            [['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
+            [['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
+            [['quantity'], 'integer', 'message' => 'pick a fucking number'],
+            //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'size_id' => 'Size',
+            'type_id' => 'T-shirt Type',
+            'color_id' => 'Select Color',
+            'quantity' => 'How many?',
         ];
     }
 
@@ -43,13 +57,13 @@ class Step1 extends Model
 
     public static function getTypeList()
     {
-        $options = Tsizes::find()->asArray() ->where(['status' => 'Y'])->all();
+        $options = Ttypes::find()->asArray()->where(['status' => 'Y'])->all();
         return Arrayhelper::map($options, 'id', 'type_name');
     }
 
     public static function getColorList()
     {
-        $options = Tsizes::find()->asArray() ->where(['status' => 'Y'])->all();
+        $options = Tcolors::find()->asArray() ->where(['status' => 'Y'])->all();
         return Arrayhelper::map($options, 'id', 'color');
     }
 

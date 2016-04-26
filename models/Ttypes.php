@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -52,6 +53,20 @@ class Ttypes extends \yii\db\ActiveRecord
             'sort_order' => 'Sort Order',
         ];
     }
+
+    /*
+       * Used to create a drop-down menu of all sizes
+       */
+    public static function dropDownMenu()
+    {
+        return ArrayHelper::map(Ttypes::find()
+            ->asArray()
+            ->where(['status' => 'Y'])
+            ->orderBy(['sort_order' => SORT_ASC])
+            ->all(),
+            'id', 'type_name');
+    }
+
 
 
 
