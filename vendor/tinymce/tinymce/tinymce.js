@@ -1,4 +1,4 @@
-// 4.3.10 (2016-04-12)
+// 4.3.11 (2016-04-25)
 
 /**
  * Compiled inline version. (Library mode)
@@ -18385,7 +18385,7 @@
                         var name = attr.nodeName.toLowerCase();
 
                         // Don't compare internal attributes or style
-                        if (name.indexOf('_') !== 0 && name !== 'style' && name !== 'data-mce-style') {
+                        if (name.indexOf('_') !== 0 && name !== 'style' && name !== 'data-mce-style' && name != 'data-mce-fragment') {
                             attribs[name] = dom.getAttrib(node, name);
                         }
                     });
@@ -22645,6 +22645,7 @@
         var isContentEditableFalse = NodeType.isContentEditableFalse,
             isText = NodeType.isText,
             isElement = NodeType.isElement,
+            isBr = NodeType.isBr,
             isForwards = CaretUtils.isForwards,
             isBackwards = CaretUtils.isBackwards,
             isCaretCandidate = CaretCandidate.isCaretCandidate,
@@ -22692,10 +22693,30 @@
             }
 
             if (isBackwards(direction)) {
+                if (isBr(node)) {
+                    return CaretPosition.before(node);
+                }
+
                 return CaretPosition.after(node);
             }
 
             return CaretPosition.before(node);
+        }
+
+        // Jumps over BR elements <p>|<br></p><p>a</p> -> <p><br></p><p>|a</p>
+        function isBrBeforeBlock(node, rootNode) {
+            var next;
+
+            if (!NodeType.isBr(node)) {
+                return false;
+            }
+
+            next = findCaretPosition(1, CaretPosition.after(node), rootNode);
+            if (!next) {
+                return false;
+            }
+
+            return !CaretUtils.isInSameBlock(CaretPosition.before(node), CaretPosition.before(next), rootNode);
         }
 
         function findCaretPosition(direction, startCaretPosition, rootNode) {
@@ -22746,6 +22767,10 @@
                 if (isForwards(direction) && offset < container.childNodes.length) {
                     nextNode = nodeAtIndex(container, offset);
                     if (isCaretCandidate(nextNode)) {
+                        if (isBrBeforeBlock(nextNode, rootNode)) {
+                            return findCaretPosition(direction, CaretPosition.after(nextNode), rootNode);
+                        }
+
                         if (!isAtomic(nextNode)) {
                             innerNode = CaretUtils.findNode(nextNode, direction, isEditableCaretCandidate, nextNode);
                             if (innerNode) {
@@ -23357,6 +23382,26 @@
                         }
                     }
 
+                    function markFragmentElements(fragment) {
+                        var node = fragment;
+
+                        while ((node = node.walk())) {
+                            if (node.type === 1) {
+                                node.attr('data-mce-fragment', '1');
+                            }
+                        }
+                    }
+
+                    function umarkFragmentElements(elm) {
+                        Tools.each(elm.getElementsByTagName('*'), function (elm) {
+                            elm.removeAttribute('data-mce-fragment');
+                        });
+                    }
+
+                    function isPartOfFragment(node) {
+                        return !!node.getAttribute('data-mce-fragment');
+                    }
+
                     function canHaveChildren(node) {
                         return node && !editor.schema.getShortEndedElements()[node.nodeName];
                     }
@@ -23432,7 +23477,7 @@
                             rng.setStart(parentBlock, 0);
                             rng.setEnd(parentBlock, 0);
 
-                            if (!isTableCell(parentBlock) && (nextRng = findNextCaretRng(rng))) {
+                            if (!isTableCell(parentBlock) && !isPartOfFragment(parentBlock) && (nextRng = findNextCaretRng(rng))) {
                                 rng = nextRng;
                                 dom.remove(parentBlock);
                             } else {
@@ -23501,6 +23546,7 @@
                     // Parse the fragment within the context of the parent node
                     var parserArgs = {context: parentNode.nodeName.toLowerCase(), data: data};
                     fragment = parser.parse(value, parserArgs);
+                    markFragmentElements(fragment);
 
                     markInlineFormatElements(fragment);
 
@@ -23576,6 +23622,7 @@
 
                     reduceInlineTextElements();
                     moveSelectionToMarker(dom.get('mce_marker'));
+                    umarkFragmentElements(editor.getBody());
                     editor.fire('SetContent', args);
                     editor.addVisual();
                 },
@@ -31590,7 +31637,7 @@
              * @private
              * @param {DragEvent} e Event object
              */
-            function setMceInteralContent(e) {
+            function setMceInternalContent(e) {
                 var selectionHtml, internalContent;
 
                 if (e.dataTransfer) {
@@ -32211,7 +32258,7 @@
 
                 editor.on('dragstart', function (e) {
                     dragStartRng = selection.getRng();
-                    setMceInteralContent(e);
+                    setMceInternalContent(e);
                 });
 
                 editor.on('drop', function (e) {
@@ -33130,7 +33177,7 @@
              */
             function ieInternalDragAndDrop() {
                 editor.on('dragstart', function (e) {
-                    setMceInteralContent(e);
+                    setMceInternalContent(e);
                 });
 
                 editor.on('drop', function (e) {
@@ -35711,8 +35758,39 @@
                 return null;
             }
 
+            function mergeTextBlocks(direction, fromCaretPosition, toCaretPosition) {
+                var dom = editor.dom, fromBlock, toBlock, node, textBlocks;
+
+                if (direction === -1) {
+                    if (isAfterContentEditableFalse(toCaretPosition) && isBlock(toCaretPosition.getNode(true))) {
+                        return deleteContentEditableNode(toCaretPosition.getNode(true));
+                    }
+                } else {
+                    if (isBeforeContentEditableFalse(fromCaretPosition) && isBlock(fromCaretPosition.getNode())) {
+                        return deleteContentEditableNode(fromCaretPosition.getNode());
+                    }
+                }
+
+                textBlocks = editor.schema.getTextBlockElements();
+                fromBlock = dom.getParent(fromCaretPosition.getNode(), dom.isBlock);
+                toBlock = dom.getParent(toCaretPosition.getNode(), dom.isBlock);
+
+                // Verify that both blocks are text blocks
+                if (fromBlock === toBlock || !textBlocks[fromBlock.nodeName] || !textBlocks[toBlock.nodeName]) {
+                    return null;
+                }
+
+                while ((node = fromBlock.firstChild)) {
+                    toBlock.appendChild(node);
+                }
+
+                editor.dom.remove(fromBlock);
+
+                return toCaretPosition.toRange();
+            }
+
             function backspaceDelete(direction, beforeFn, range) {
-                var node, caretPosition;
+                var node, caretPosition, peekCaretPosition;
 
                 if (!range.collapsed) {
                     node = getSelectedNode(range);
@@ -35725,6 +35803,15 @@
 
                 if (beforeFn(caretPosition)) {
                     return renderRangeCaret(deleteContentEditableNode(caretPosition.getNode(direction == -1)));
+                }
+
+                peekCaretPosition = direction == -1 ? caretWalker.prev(caretPosition) : caretWalker.next(caretPosition);
+                if (beforeFn(peekCaretPosition)) {
+                    if (direction === -1) {
+                        return mergeTextBlocks(direction, caretPosition, peekCaretPosition);
+                    }
+
+                    return mergeTextBlocks(direction, peekCaretPosition, caretPosition);
                 }
             }
 
@@ -38817,7 +38904,7 @@
              * @property minorVersion
              * @type String
              */
-            minorVersion: '3.10',
+            minorVersion: '3.11',
 
             /**
              * Release date of TinyMCE build.
@@ -38825,7 +38912,7 @@
              * @property releaseDate
              * @type String
              */
-            releaseDate: '2016-04-12',
+            releaseDate: '2016-04-25',
 
             /**
              * Collection of editor instances.
