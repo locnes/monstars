@@ -1,4 +1,5 @@
 <?php
+
 use beastbytes\wizard\WizardMenu;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -29,21 +30,19 @@ echo Html::tag('h3', Html::encode("Choose your Shirt & Type"));
 
 $form = ActiveForm::begin();
 // All of the code to lay out the "step 1" stage should live right here, like what I have below:
+
+
 //echo $form->field($model, 'size_id');
 echo $form->field($model, 'size_id')->dropDownList($model->getSizeList(), ['prompt' => 'Please choose...']);
-
-
-
 
 //echo $form->field($model, 'type_id');
 echo $form->field($model, 'type_id')->dropDownList($model->getTypeList(), ['prompt' => 'Please choose...']);
 
-
 //echo $form->field($model, 'color_id');
 echo $form->field($model, 'color_id')->dropDownList($model->getColorList(), ['prompt' => 'Please choose...']);
 
-
 echo $form->field($model, 'quantity');
+
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
 echo Html::submitButton('Next', ['class' => 'button', 'name' => 'next', 'value' => 'next']);

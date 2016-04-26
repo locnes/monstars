@@ -29,20 +29,11 @@ echo Html::tag('h3', Html::encode("Choose Your Design"));
 
 $form = ActiveForm::begin();
 // All of the code to lay out the "step 2" stage should live right here, like what I have below:
-echo $form->field($model, 'design_id');
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
 
-
-
 //echo $form->field($model, 'type_id');
 echo $form->field($model, 'design_id')->dropDownList($model->getDesignList(), ['prompt' => 'Please choose...']);
-
-
-
-
-
-
 
 
 

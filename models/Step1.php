@@ -27,7 +27,7 @@ class Step1 extends Model
     {
         return [
             [['size_id', 'type_id', 'color_id', 'quantity'], 'required'],
-            [['quantity'], 'integer', 'message' => 'pick a fucking number'],
+            [['quantity'], 'integer', 'message' => 'Pick a fucking number!'],
             //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
@@ -45,26 +45,34 @@ class Step1 extends Model
         ];
     }
 
-
-
-
+    /**
+     * Returns an array of all of the "live" T-shirt sizes
+     * @return array
+     */
     public static function getSizeList()
     {
         $options = Tsizes::find()->asArray()->where(['status' => 'Y'])->all();
-        return Arrayhelper::map($options, 'id', 'type_name');
+        return ArrayHelper::map($options, 'id', 'type_name');
     }
 
-
+    /**
+     * Returns an array of all of the "live" T-shirt types
+     * @return array
+     */
     public static function getTypeList()
     {
         $options = Ttypes::find()->asArray()->where(['status' => 'Y'])->all();
-        return Arrayhelper::map($options, 'id', 'type_name');
+        return ArrayHelper::map($options, 'id', 'type_name');
     }
 
+    /**
+     * Returns an array of all of the "live" T-shirt colors
+     * @return array
+     */
     public static function getColorList()
     {
         $options = Tcolors::find()->asArray() ->where(['status' => 'Y'])->all();
-        return Arrayhelper::map($options, 'id', 'color');
+        return ArrayHelper::map($options, 'id', 'color');
     }
 
 

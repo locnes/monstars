@@ -44,7 +44,7 @@ class Step2 extends Model
     public static function getDesignList()
     {
         $options = Tdesign::find()->asArray()->where(['status' => 'Y'])->all();
-        return Arrayhelper::map($options, 'id', 'title');
+        return ArrayHelper::map($options, 'id', 'title');
     }
 
 }
