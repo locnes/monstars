@@ -118,7 +118,7 @@ body {
     margin: 20px auto;
     background: #fff;
     border-radius: 70px 5px 70px 5px;
-    padding: 5px 5px 5px 5px;
+    padding: 0 15px 15px 15px;
 }
 
 .wizard .nav-tabs {
