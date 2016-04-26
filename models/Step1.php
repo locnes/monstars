@@ -9,6 +9,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 
 class Step1 extends Model
@@ -29,5 +30,29 @@ class Step1 extends Model
             [['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
+
+
+
+
+    public static function getSizeList()
+    {
+        $options = Tsizes::find()->asArray()->where(['status' => 'Y'])->all();
+        return Arrayhelper::map($options, 'id', 'type_name');
+    }
+
+
+    public static function getTypeList()
+    {
+        $options = Tsizes::find()->asArray() ->where(['status' => 'Y'])->all();
+        return Arrayhelper::map($options, 'id', 'type_name');
+    }
+
+    public static function getColorList()
+    {
+        $options = Tsizes::find()->asArray() ->where(['status' => 'Y'])->all();
+        return Arrayhelper::map($options, 'id', 'color');
+    }
+
+
 
 }

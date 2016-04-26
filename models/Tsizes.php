@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "Tsizes".
@@ -54,6 +55,20 @@ class Tsizes extends \yii\db\ActiveRecord
         ];
 
 
+    }
+
+
+    /*
+        * Used to create a drop-down menu of all sizes
+        */
+    public static function dropDownMenu()
+    {
+        return ArrayHelper::map(Tsizes::find()
+            ->asArray()
+            ->where(['status' => 'Y'])
+            ->orderBy(['sort_order' => SORT_ASC])
+            ->all(),
+            'id', 'type_name');
     }
 
 
