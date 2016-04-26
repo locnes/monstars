@@ -33,8 +33,16 @@ $form = ActiveForm::begin();
 echo $form->field($model, 'size_id')->dropDownList($model->getSizeList(), ['prompt' => 'Please choose...']);
 
 
-echo $form->field($model, 'type_id');
-echo $form->field($model, 'color_id');
+
+
+//echo $form->field($model, 'type_id');
+echo $form->field($model, 'type_id')->dropDownList($model->getTypeList(), ['prompt' => 'Please choose...']);
+
+
+//echo $form->field($model, 'color_id');
+echo $form->field($model, 'color_id')->dropDownList($model->getColorList(), ['prompt' => 'Please choose...']);
+
+
 echo $form->field($model, 'quantity');
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
