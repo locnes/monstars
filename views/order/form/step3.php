@@ -35,7 +35,7 @@ echo $form->field($model, 'address');
 echo $form->field($model, 'city');
 echo $form->field($model, 'state');
 echo $form->field($model, 'zipcode');
-echo $form->field($model, 'email');
+echo $form->field($model, 'email')->textInput()->input('email', ['placeholder' => "Enter your email address"]);
 echo $form->field($model, 'phone_number');
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);

@@ -41,7 +41,7 @@ echo $form->field($model, 'type_id')->dropDownList($model->getTypeList(), ['prom
 //echo $form->field($model, 'color_id');
 echo $form->field($model, 'color_id')->dropDownList($model->getColorList(), ['prompt' => 'Please choose...']);
 
-echo $form->field($model, 'quantity');
+echo $form->field($model, 'quantity')->textInput()->input('quantity', ['placeholder' => "How many T-shirts would you like to order?"]);
 
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);

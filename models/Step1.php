@@ -30,8 +30,10 @@ class Step1 extends Model
             [['size_id'], 'required', 'message' => 'Select the color of your T-shirt'],
             [['type_id'], 'required', 'message' => 'What type of shirt do you want?'],
             [['color_id'], 'required', 'message' => 'What color shirt do you want?'],
+
             [['quantity'], 'required', 'message' => 'Pick a fucking number!'],
             [['quantity'], 'integer', 'message' => 'It\'s got to be a number, dude!'],
+            [['quantity'], 'integer', 'min' => 1, 'max' => 300, 'message' => 'You have to pick at least one damn shirt!'],
             //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
@@ -45,7 +47,7 @@ class Step1 extends Model
             'size_id' => 'Size',
             'type_id' => 'T-shirt Type',
             'color_id' => 'Select Color',
-            'quantity' => 'How many?',
+            'quantity' => 'Quantity',
         ];
     }
 
