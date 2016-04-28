@@ -33,7 +33,7 @@ $form = ActiveForm::begin();
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
 
 //echo $form->field($model, 'type_id');
-echo $form->field($model, 'design_id')->dropDownList($model->getDesignList(), ['prompt' => 'Please choose...']);
+echo $form->field($model, 'design_id')->dropDownList($model->getDesignsHierarchy(), ['prompt' => 'Please choose...'])->hint('Pick a F*cking T-Shirt!');
 
 
 
