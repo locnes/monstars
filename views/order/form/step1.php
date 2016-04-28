@@ -6,7 +6,6 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Order Form';
 
-
 echo WizardMenu::pre();
 echo WizardMenu::widget([
     'step' => $event->step,

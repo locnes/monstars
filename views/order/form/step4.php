@@ -1,4 +1,5 @@
 <?php
+
 use beastbytes\wizard\WizardMenu;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

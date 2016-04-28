@@ -33,7 +33,13 @@ class Step1 extends Model
 
             [['quantity'], 'required', 'message' => 'Pick a fucking number!'],
             [['quantity'], 'integer', 'message' => 'It\'s got to be a number, dude!'],
-            [['quantity'], 'integer', 'min' => 1, 'max' => 300, 'message' => 'You have to pick at least one damn shirt!'],
+            [['quantity'], 'integer',
+                'min' => 1,
+                'max' => 300,
+                'message' => 'You have to pick at least one damn shirt!',
+                'tooSmall' => 'You can\'t order less than one T-shirt dude.',
+                'tooBig' => 'You can\'t order more than 300 shirts!!',
+            ],
             //[['size_id', 'type_id', 'color_id', 'quantity'], 'safe'],
         ];
     }
