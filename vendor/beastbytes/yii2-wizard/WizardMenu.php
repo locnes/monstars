@@ -30,7 +30,6 @@ class WizardMenu extends Menu
                                 {label}
                             </span>
                             </a>';
-    //<i class="glyphicon glyphicon-folder-open"></i>
 
 
     /**
@@ -115,7 +114,8 @@ class WizardMenu extends Menu
             }
 
             $this->items[] = [
-                'label' => $this->wizard->stepLabel($step),
+                'label' => '<i class="glyphicon glyphicon-arrow-down"></i>',
+                //'label' => $this->wizard->stepLabel($step),
                 'url' => $url,
                 'active' => $active,
                 'options' => compact('class')
