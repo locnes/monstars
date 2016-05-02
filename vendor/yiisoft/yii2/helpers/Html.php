@@ -7,6 +7,8 @@
 
 namespace yii\helpers;
 
+use Yii;
+
 /**
  * Html provides a set of static methods for generating commonly used HTML tags.
  *
@@ -19,4 +21,22 @@ namespace yii\helpers;
  */
 class Html extends BaseHtml
 {
+
+    /**
+     * @return string
+     * I'm going to use this to loop through all existing flash messages that have accumulated in any
+     * controller action
+     */
+    public static function showFlashMessages()
+    {
+        $msg = "";
+        foreach (Yii::$app->session->getAllFlashesNormalized() as $flash) {
+            $msg .= "<div class='alert alert-" . $flash['key'] . " fade in' role='alert'>";
+            $msg .= "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+            $msg .= $flash['message'];
+            $msg .= "</div>";
+        }
+        return $msg;
+    }
+
 }
