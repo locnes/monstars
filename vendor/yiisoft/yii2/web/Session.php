@@ -868,4 +868,22 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
         $this->open();
         unset($_SESSION[$offset]);
     }
+
+
+    /**
+     * Used to loop through all available Session flash messages
+     * @return array
+     */
+    public function getAllFlashesNormalized()
+    {
+        $flashes = [];
+        foreach (Yii::$app->session->getAllFlashes() as $key => $flash) {
+            if (is_array($flash))
+                foreach ($flash AS $message)
+                    $flashes[] = ['key' => $key, 'message' => $message];
+            else
+                $flashes[] = ['key' => $key, 'message' => $flash];
+        }
+        return $flashes;
+    }
 }
