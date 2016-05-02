@@ -7,12 +7,12 @@
 
 namespace yii\base;
 
-use Yii;
 use ArrayAccess;
-use ArrayObject;
 use ArrayIterator;
-use ReflectionClass;
+use ArrayObject;
 use IteratorAggregate;
+use ReflectionClass;
+use Yii;
 use yii\helpers\Inflector;
 use yii\validators\RequiredValidator;
 use yii\validators\Validator;
@@ -754,7 +754,7 @@ class Model extends Component implements IteratorAggregate, ArrayAccess, Arrayab
         }
         $attributes = [];
         foreach ($scenarios[$scenario] as $attribute) {
-            if ($attribute[0] !== '!') {
+            if ($attribute[0] !== '!' && !in_array('!' . $attribute, $scenarios[$scenario])) {
                 $attributes[] = $attribute;
             }
         }

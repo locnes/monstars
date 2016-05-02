@@ -7,15 +7,15 @@
 
 namespace yii\grid;
 
-use Yii;
 use Closure;
-use yii\i18n\Formatter;
+use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\Url;
+use yii\base\Model;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
+use yii\i18n\Formatter;
 use yii\widgets\BaseListView;
-use yii\base\Model;
 
 /**
  * The GridView widget is used to display data in a grid.
@@ -356,7 +356,7 @@ class GridView extends BaseListView
 
     /**
      * Renders the caption element.
-     * @return bool|string the rendered caption element or `false` if no caption element should be rendered.
+     * @return boolean|string the rendered caption element or `false` if no caption element should be rendered.
      */
     public function renderCaption()
     {
@@ -369,7 +369,7 @@ class GridView extends BaseListView
 
     /**
      * Renders the column group HTML.
-     * @return bool|string the column group HTML or `false` if no column group should be rendered.
+     * @return boolean|string the column group HTML or `false` if no column group should be rendered.
      */
     public function renderColumnGroup()
     {

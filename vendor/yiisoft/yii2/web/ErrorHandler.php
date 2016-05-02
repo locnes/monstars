@@ -8,8 +8,8 @@
 namespace yii\web;
 
 use Yii;
-use yii\base\Exception;
 use yii\base\ErrorException;
+use yii\base\Exception;
 use yii\base\UserException;
 use yii\helpers\VarDumper;
 
@@ -134,7 +134,7 @@ class ErrorHandler extends \yii\base\ErrorHandler
     protected function convertExceptionToArray($exception)
     {
         if (!YII_DEBUG && !$exception instanceof UserException && !$exception instanceof HttpException) {
-            $exception = new HttpException(500, 'There was an error at the server.');
+            $exception = new HttpException(500, Yii::t('yii', 'An internal server error occurred.'));
         }
 
         $array = [

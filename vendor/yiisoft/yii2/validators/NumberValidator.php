@@ -8,8 +8,8 @@
 namespace yii\validators;
 
 use Yii;
-use yii\web\JsExpression;
 use yii\helpers\Json;
+use yii\web\JsExpression;
 
 /**
  * NumberValidator validates that the attribute value is a number.
@@ -101,7 +101,7 @@ class NumberValidator extends Validator
      */
     protected function validateValue($value)
     {
-        if (is_array($value)) {
+        if (is_array($value) || is_object($value)) {
             return [Yii::t('yii', '{attribute} is invalid.'), []];
         }
         $pattern = $this->integerOnly ? $this->integerPattern : $this->numberPattern;

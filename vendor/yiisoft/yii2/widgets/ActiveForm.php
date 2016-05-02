@@ -9,12 +9,12 @@ namespace yii\widgets;
 
 use Yii;
 use yii\base\InvalidCallException;
-use yii\base\Widget;
 use yii\base\Model;
+use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * ActiveForm is a widget that builds an interactive HTML form for one or multiple data models.
@@ -178,7 +178,8 @@ class ActiveForm extends Widget
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
-        echo Html::beginForm($this->action, $this->method, $this->options);
+        ob_start();
+        ob_implicit_flush(false);
     }
 
     /**
@@ -191,6 +192,10 @@ class ActiveForm extends Widget
         if (!empty($this->_fields)) {
             throw new InvalidCallException('Each beginField() should have a matching endField() call.');
         }
+
+        $content = ob_get_clean();
+        echo Html::beginForm($this->action, $this->method, $this->options);
+        echo $content;
 
         if ($this->enableClientScript) {
             $id = $this->options['id'];

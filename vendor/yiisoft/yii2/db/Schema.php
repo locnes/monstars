@@ -8,9 +8,9 @@
 namespace yii\db;
 
 use Yii;
-use yii\base\Object;
-use yii\base\NotSupportedException;
 use yii\base\InvalidCallException;
+use yii\base\NotSupportedException;
+use yii\base\Object;
 use yii\caching\Cache;
 use yii\caching\TagDependency;
 
@@ -41,7 +41,10 @@ abstract class Schema extends Object
      * The following are the supported abstract column data types.
      */
     const TYPE_PK = 'pk';
+    const TYPE_UPK = 'upk';
     const TYPE_BIGPK = 'bigpk';
+    const TYPE_UBIGPK = 'ubigpk';
+    const TYPE_CHAR = 'char';
     const TYPE_STRING = 'string';
     const TYPE_TEXT = 'text';
     const TYPE_SMALLINT = 'smallint';
@@ -519,7 +522,7 @@ abstract class Schema extends Object
      */
     public function quoteColumnName($name)
     {
-        if (strpos($name, '(') !== false || strpos($name, '[[') !== false || strpos($name, '{{') !== false) {
+        if (strpos($name, '(') !== false || strpos($name, '[[') !== false) {
             return $name;
         }
         if (($pos = strrpos($name, '.')) !== false) {
@@ -528,7 +531,9 @@ abstract class Schema extends Object
         } else {
             $prefix = '';
         }
-
+        if (strpos($name, '{{') !== false) {
+            return $name;
+        }
         return $prefix . $this->quoteSimpleColumnName($name);
     }
 

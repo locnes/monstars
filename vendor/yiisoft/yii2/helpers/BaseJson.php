@@ -7,8 +7,8 @@
 
 namespace yii\helpers;
 
-use yii\base\InvalidParamException;
 use yii\base\Arrayable;
+use yii\base\InvalidParamException;
 use yii\web\JsExpression;
 
 /**
@@ -90,6 +90,8 @@ class BaseJson
     {
         if (is_array($json)) {
             throw new InvalidParamException('Invalid JSON data.');
+        } elseif ($json === null || $json === '') {
+            return null;
         }
         $decode = json_decode((string) $json, $asArray);
         static::handleJsonError(json_last_error());
