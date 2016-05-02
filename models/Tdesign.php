@@ -170,7 +170,7 @@ class Tdesign extends \yii\db\ActiveRecord
     public static function getCategoryList()
     {
         $options = Tcategories::find()->asArray()->all();
-        return Arrayhelper::map($options, 'id', 'cat_name');
+        return ArrayHelper::map($options, 'id', 'cat_name');
     }
 
     
