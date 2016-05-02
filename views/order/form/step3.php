@@ -3,6 +3,7 @@
 use beastbytes\wizard\WizardMenu;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
 $this->title = 'Order Form';
 
@@ -36,7 +37,11 @@ echo $form->field($model, 'city');
 echo $form->field($model, 'state');
 echo $form->field($model, 'zipcode');
 echo $form->field($model, 'email')->textInput()->input('email', ['placeholder' => "Enter your email address"]);
-echo $form->field($model, 'phone_number');
+echo $form->field($model, 'phone_number')->widget(MaskedInput::className(),
+    [
+        'mask' => '(999) 999-9999',
+    ]
+);
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
 echo Html::submitButton('Prev', ['class' => 'button', 'name' => 'prev', 'value' => 'prev']);
