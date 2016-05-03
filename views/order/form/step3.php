@@ -21,6 +21,11 @@ echo WizardMenu::widget([
         ['label' => '<i class="glyphicon glyphicon-picture"></i>'],
     ],
     */
+
+
+
+
+
     'encodeLabels' => false,
 ]);
 echo WizardMenu::post();
@@ -39,7 +44,7 @@ echo $form->field($model, 'zipcode');
 echo $form->field($model, 'email')->textInput()->input('email', ['placeholder' => "Enter your email address"]);
 echo $form->field($model, 'phone_number')->widget(MaskedInput::className(),
     [
-        'mask' => '(999) 999-9999',
+        'mask' => '999-999-9999',
     ]
 );
 

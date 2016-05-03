@@ -29,6 +29,15 @@ class Step3 extends Model
     public $phone_number;
 
 
+
+
+
+
+
+
+
+
+
     /**
      * @inheritdoc
      */
@@ -36,7 +45,20 @@ class Step3 extends Model
     {
         return [
             //[['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'email', 'phone_number'], 'required'],
-            ['email', 'email'],
+
+            [['first_name'], 'required', 'message' => 'Know your name?'],
+            [['last_name'], 'required', 'message' => 'Know your last name?'],
+            [['address'], 'required', 'message' => 'Where should we send the package?'],
+
+            [['city'], 'required', 'message' => 'Know your City?'],
+
+            [['state'], 'required', 'message' => 'Know your last name?'],
+            [['zipcode'], 'required', 'message' => 'Where should we send the package?'],
+            [['email'], 'required', 'message' => 'Email@whatever.domain?'],
+
+            [['phone_number'], 'required', 'message' => 'I need your digits to go on'],
+
+            [['email'], 'email', 'message' => 'Follow this format!! Email@whatever.domain?'],
             ['zipcode', 'match',
                 'pattern' => '/^\d{5}(?:[-\s]\d{4})?$/i',
                 'message' => 'Zip code must be comprised of the following formats: 99999, 99999-9999 or 99999 9999.',
