@@ -22,7 +22,7 @@ AppAsset::register($this);
 <body class="orderForm">
 <?php $this->beginBody() ?>
 
-<div class="col-md-12">
+<div class="col-md-12 monstarsLogo">
     <?= Html::img('@images/Monstars_Logo.gif', ['alt' => 'Monstars Logo', 'class' => 'pull-right img-responsive']); ?>
     <div class="page-logo">
         <h1>

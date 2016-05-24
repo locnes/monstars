@@ -44,8 +44,10 @@ echo $form->field($model, 'quantity')->textInput()->input('quantity', ['placehol
 
 
 echo Html::beginTag('div', ['class' => 'form-row buttons']);
-echo Html::submitButton('Next', ['class' => 'button', 'name' => 'next', 'value' => 'next']);
-echo Html::submitButton('Pause', ['class' => 'button', 'name' => 'pause', 'value' => 'pause']);
-echo Html::submitButton('Cancel', ['class' => 'button', 'name' => 'cancel', 'value' => 'pause']);
+echo Html::submitButton('Next', ['class' => 'button button1', 'name' => 'next', 'value' => 'next']);
+echo Html::submitButton('Pause', ['class' => 'button button2', 'name' => 'pause', 'value' => 'pause']);
+echo Html::submitButton('Cancel', ['class' => 'button button3', 'name' => 'cancel', 'value' => 'pause']);
 echo Html::endTag('div');
+
 ActiveForm::end();
+
