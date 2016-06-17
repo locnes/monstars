@@ -66,24 +66,15 @@ return array (
         '@kartik/form' => $vendorDir . '/kartik-v/yii2-widget-activeform',
     ),
   ),
-    'kartik-v/yii2-widget-fileinput' => 
+    'yiisoft/yii2-gii' => 
   array (
-      'name' => 'kartik-v/yii2-widget-fileinput',
-      'version' => '1.0.4.0',
+      'name' => 'yiisoft/yii2-gii',
+      'version' => '2.0.5.0',
     'alias' => 
     array (
-        '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
+        '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
     ),
   ),
-    'yiisoft/yii2-gii' =>
-        array(
-            'name' => 'yiisoft/yii2-gii',
-            'version' => '2.0.5.0',
-            'alias' =>
-                array(
-                    '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
-                ),
-        ),
     '2amigos/yii2-tinymce-widget' =>
         array(
             'name' => '2amigos/yii2-tinymce-widget',
@@ -93,15 +84,6 @@ return array (
                     '@dosamigos/tinymce' => $vendorDir . '/2amigos/yii2-tinymce-widget/src',
                 ),
         ),
-    'kartik-v/yii2-krajee-base' =>
-        array(
-            'name' => 'kartik-v/yii2-krajee-base',
-            'version' => '1.8.4.0',
-            'alias' =>
-                array(
-                    '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
-                ),
-        ),
     'beastbytes/yii2-wizard' =>
         array(
             'name' => 'beastbytes/yii2-wizard',
@@ -109,6 +91,24 @@ return array (
             'alias' =>
                 array(
                     '@beastbytes/wizard' => $vendorDir . '/beastbytes/yii2-wizard',
+                ),
+        ),
+    'kartik-v/yii2-krajee-base' =>
+        array(
+            'name' => 'kartik-v/yii2-krajee-base',
+            'version' => '1.8.5.0',
+            'alias' =>
+                array(
+                    '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
+                ),
+        ),
+    'kartik-v/yii2-widget-fileinput' =>
+        array(
+            'name' => 'kartik-v/yii2-widget-fileinput',
+            'version' => '1.0.5.0',
+            'alias' =>
+                array(
+                    '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
     ),
   ),
 );
