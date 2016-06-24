@@ -14,7 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'size_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'size_fullname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price_add')->widget(MaskMoney::classname(), [
         'pluginOptions' => [

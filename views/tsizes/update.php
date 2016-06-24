@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tsizes */
 
-$this->title = 'Update Size: ' . ' ' . $model->type_name;
-$this->params['breadcrumbs'][] = ['label' => 'T-shirt size', 'url' => ['Size']];
-$this->params['breadcrumbs'][] = ['label' => $model->type_name, 'url' => ['view', 'id' => $model->id]];
+$this->title = 'Update Size: ' . ' ' . $model->size_fullname;
+$this->params['breadcrumbs'][] = ['label' => 'T-shirt size', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->size_fullname, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="tsizes-update">

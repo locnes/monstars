@@ -23,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
            // ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'type_name',
+            'size_name',
+            'size_fullname',
             [
                 'attribute' => 'price_add',
                 'format' => [

@@ -30,12 +30,12 @@ class Tsizes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_name', 'price_add', 'sort_order'], 'required'],
+            [['size_name', 'size_fullname', 'price_add', 'sort_order'], 'required'],
             [['price_add'], 'number'],
             [['sort_order'], 'integer'],
-            [['type_name'], 'string', 'max' => 2],
+            [['size_name'], 'string', 'max' => 2],
             [['status'], 'string', 'max' => 1],
-            [['type_name'], 'unique']
+            [['size_name'], 'unique']
         ];
     }
 
@@ -47,7 +47,8 @@ class Tsizes extends \yii\db\ActiveRecord
 
         return [
             'id' => 'ID',
-            'type_name' => 'Shirt Size',
+            'size_name' => 'Shirt Size (short)',
+            'size_fullname' => 'Shirt Size (full)',
             'price_add' => 'Price Add',
             'status' => 'Status',
             'sort_order' => 'Sort Order',
@@ -68,7 +69,7 @@ class Tsizes extends \yii\db\ActiveRecord
             ->where(['status' => 'Y'])
             ->orderBy(['sort_order' => SORT_ASC])
             ->all(),
-            'id', 'type_name');
+            'id', 'size_fullname');
     }
 
 
