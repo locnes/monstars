@@ -64,7 +64,7 @@ class Step1 extends Model
     public static function getSizeList()
     {
         $options = Tsizes::find()->asArray()->where(['status' => 'Y'])->all();
-        return ArrayHelper::map($options, 'id', 'type_name');
+        return ArrayHelper::map($options, 'id', 'size_fullname');
     }
 
     /**
