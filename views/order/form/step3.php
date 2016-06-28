@@ -7,7 +7,7 @@ use yii\widgets\MaskedInput;
 
 $this->title = 'Order Form';
 
-echo WizardMenu::pre();
+//echo WizardMenu::pre();
 echo WizardMenu::widget([
     'step' => $event->step,
     'wizard' => $event->sender,
@@ -23,7 +23,7 @@ echo WizardMenu::widget([
     */
     'encodeLabels' => false,
 ]);
-echo WizardMenu::post();
+//echo WizardMenu::post();
 
 
 echo Html::tag('h3', Html::encode("Checkout"));
